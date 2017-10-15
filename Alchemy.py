@@ -2,11 +2,12 @@ import sqlalchemy
 from sqlalchemy import create_engine, Boolean, Column, Integer, String, Text, ForeignKey, Date
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.sql import func, text
 
 from wtforms import RadioField, SelectField, DateTimeField, IntegerField, Form, BooleanField, StringField, PasswordField, validators
 
 
-engine = create_engine('sqlite:///test.db', echo=True)
+engine = create_engine("postgresql://postgres:ultimate@localhost:5432", echo=True)
 
 Base = declarative_base()
 
@@ -15,7 +16,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 from sqlalchemy.types import TypeDecorator, CHAR
 from sqlalchemy.dialects.postgresql import UUID
-import uuid
+from uuid import uuid4
 
 class GUID(TypeDecorator):
         """Platform-independent GUID type.
@@ -59,7 +60,7 @@ class TestingTesting(Base):
 class User(Base):
     __tablename__ = 'users'
     
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
     username = Column(String(30), unique=True, nullable=False)
     fullname = Column(String(100), unique=True, nullable=False)
     email = Column(String(50), unique=True, nullable=False)
@@ -91,8 +92,8 @@ class NewUser(Form):
 
 class EventInfo(Base):
     __tablename__ = 'eventinfo'
-    
-    id = Column(Integer, primary_key=True)
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
     name = Column(String(50), nullable=False)
     year = Column(Integer, nullable=False)
     city = Column(String(50), nullable=False)
@@ -403,7 +404,7 @@ class Sample(Base):
     
     id = Column(Integer, primary_key=True)
     #make event id back populate from EventInfo Table...
-    eventid = Column(Integer, ForeignKey('eventinfo.id'))
+    eventid = Column(UUID, ForeignKey('eventinfo.id'))
     event = relationship('EventInfo', backref='eventinfo')
     surveyid = Column(Integer, ForeignKey('survey.id'))
     survey = relationship('Survey', backref='survey')
@@ -411,13 +412,39 @@ class Sample(Base):
     groundscorebool = Column(Boolean)
 
     #same with the User table....
-    shiftlead = Column(Integer, ForeignKey('users.id'))
-    tester = Column(Integer, ForeignKey('users.id'))
-    recorder = Column(Integer, ForeignKey('users.id'))
+    shiftlead = Column(UUID, ForeignKey('users.id'))
+    tester = Column(UUID, ForeignKey('users.id'))
+    recorder = Column(UUID, ForeignKey('users.id'))
     testconclusive = Column(Boolean)
     result = Column(Integer, ForeignKey('substances.id'))
     commentbool = Column(Boolean)
 
+class SampleTest(Base):
+    __tablename__ = 'sampletest'
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
+    chapterName = Column(String)
+    eventid = Column(UUID(as_uuid=True), ForeignKey('eventinfo.id'))
+    shiftLead = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+    tester = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+    recorder = Column(UUID(as_uuid=True), ForeignKey('users.id'))
+
+    def __init__(self, chapterName=None, eventName=None, shiftLead=None, tester=None, recorder=None):
+
+        self.chapterName = chapterName
+        self.eventName = eventName
+        self.shiftLead = shiftLead
+        self.tester = tester
+        self.recorder = recorder
+
+
+
+class SampleTestForm(Form):
+    chapterName = StringField('chapterName')
+    eventName = StringField('eventName')
+    shiftLead = StringField('shiftLead')
+    tester = StringField('tester')
+    recorder = StringField('recorder')
 
 class Substances(Base):
     __tablename__ = 'substances'

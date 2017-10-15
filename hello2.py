@@ -28,30 +28,46 @@ def hello_world():
     return 'Hello World!'
 
 def fetchList(listName=None):
+    """
+    Function fetch a list according to listName parameter in order to populate
+    drop down menu in the main survey
+
+    :param listName: name of parameter to be pulled from tables
+        ie event, user, chapter, question
+    :return: list of entries pulled from tables
+    """
+
+
     if listName == 'event':
         eventlist = []
-        for eachEvent in session.query(EventInfo.name, EventInfo.year):
-            eventlist.append(eachEvent)
+        for eachEvent in session.query(EventInfo.name, EventInfo.year).all():
+            eventlist.append(eachEvent.name)
         print(eventlist)
         return eventlist
     if listName == 'user':
         userlist = []
-        for eachUser in session.query(User.fullname):
-            userlist.append(eachUser)
+        for eachUser in session.query(User.fullname).all():
+            userlist.append(eachUser.fullname)
         print(userlist)
         return userlist
     if listName == 'chapter':
         chapterlist = []
-        for eachChapter in session.query(User.chapter):
-            chapterlist.append(eachChapter)
+        for eachChapter in session.query(User.chapter).all():
+            chapterlist.append(eachChapter.chapter)
         print(chapterlist)
         return chapterlist
     if listName == 'question':
         questionlist = []
-        for eachQuestion in session.query(Questions.detail):
+        for eachQuestion in session.query(Questions.detail).all():
             questionlist.append(eachQuestion)
         print(questionlist)
         return questionlist
+    if listName == 'reagent':
+        reagentlist = []
+        for eachReagent in session.query(Reagent.name).all():
+            reagentlist.append(eachReagent.name)
+        print(reagentlist)
+        return reagentlist
 
 
 @app.route('/add_data', methods=['GET','POST'])
@@ -193,6 +209,11 @@ def add_user():
 
 @app.route('/add_question', methods=['GET', 'POST'])
 def add_question():
+    eventlist = fetchList(listName='event')
+    userlist = fetchList(listName='user')
+    chapterlist = fetchList(listName='chapter')
+    questionlist = fetchList(listName='question')
+    reagentlist = fetchList(listName='reagent')
     form = NewQuestion(request.form)
     if request.method == 'POST':
         detail = Questions(form.detail.data)
@@ -201,7 +222,44 @@ def add_question():
         for row in session.query(Questions):
             print(row)
         return redirect(url_for('add_question'))
-    return render_template('addquestion.html', form=form)
+    return render_template('addquestion.html', chapterlist=chapterlist, eventlist=eventlist, userlist=userlist, questionlist=questionlist, reagentlist=reagentlist, form=form)
+
+
+@app.route('/add_data_test', methods=['GET', 'POST'])
+def add_data_test():
+    eventlist = fetchList(listName='event')
+    userlist = fetchList(listName='user')
+    chapterlist = fetchList(listName='chapter')
+    questionlist = fetchList(listName='question')
+    reagentlist = fetchList(listName='reagent')
+    form = SampleTestForm(request.form)
+    if request.method == 'POST':
+        data = SampleTest()
+        print("Attempting to print form.eventName.data now")
+        print(type(form.eventName.data))
+        data.eventid = session.query(EventInfo.id).filter_by(name=form.eventName.data).first()
+        data.shiftLead = pullUUID(fromTable='user', name=request.form['shiftLead'])
+        data.tester = pullUUID(fromTable='user', name=request.form['tester'])
+        data.recorder = pullUUID(fromTable='user', name=request.form['recorder'])
+        session.add(data)
+        session.commit()
+        return redirect(url_for('add_data_test'))
+    return render_template('survey.html', reagentlist=reagentlist, chapterlist=chapterlist, eventlist=eventlist, userlist=userlist, questionlist=questionlist, form=form)
+
+
+
+def pullUUID(fromTable=None, name=None):
+    if fromTable == 'user':
+        for id, in session.query(User.id).filter_by(fullname=name):
+            print(id)
+            return id
+    if fromTable == 'event':
+        for id, in session.query(EventInfo.id).filter_by(name=name):
+            print(id)
+            return id
+
+# def populateTestsTable():
+
 
 
 app.secret_key = '55823c2e-b31b-4eaf-a44b-025c7fbb1645'

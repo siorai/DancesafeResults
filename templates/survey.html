@@ -13,7 +13,7 @@
 		<div>
 			<h1>DanceSafe Reagentatrix</h1>			
 			<div>
-				<form action="/add_data" method="POST">
+				<form action="/add_data_test" method="POST">
 					<table>
                         {% if chapterName is defined %}
                         <tr>
@@ -25,7 +25,7 @@
 							<td>Chapter Name:</td>
 							<td>
 								<select name="chapterName", id="chapterName">
-                                {% for i in chapterlist: %}
+                                {% for i in chapterlist %}
                                 <option id="{{ i }}">{{ i }}</option>
                                 {% endfor %}    
 							</td>
