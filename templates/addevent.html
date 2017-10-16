@@ -3,6 +3,8 @@
     <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+        <link href="../static/css/bootstrap.css" rel="stylesheet">
+        <link href="../static/css/bootstrap-colorpicker.css" rel="stylesheet">
 
 		<!-- Website CSS style -->
 		<link rel="stylesheet" type="text/css" href="../static/css/newuser.css">
@@ -96,7 +98,15 @@
 								</div>
 							</div>
 						</div>
-
+                        <div id="cp2" class="input-group colorpicker-component">
+                            <input type="text" value="#00aabb" class="form-control" />
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                        <script>
+                            $(function() {
+                            $('#cp2').colorpicker();
+                            });
+                        </script>
 						<div class="form-group ">
 							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Create Event</button>
 						</div>
@@ -107,8 +117,10 @@
 				</div>
 			</div>
 		</div>
+        <script src="../static/js/jquery.js"></script>
+		<script type="text/javascript" src="../static/js/bootstrap.js"></script>
 
-		<script type="text/javascript" src="static/js/bootstrap.js"></script>
+        <script src="../static/js/bootstrap-colorpicker.js"></script>
 <script type="text/javascript">
 
 </script>

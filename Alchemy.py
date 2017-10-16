@@ -462,7 +462,7 @@ class Tests(Base):
 class TestResults(Base):
     __tablename__ = 'testresults'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
     sampleid = Column(Integer, ForeignKey('sample.id'))
     testid = Column(Integer, ForeignKey('tests.id'))
     reactioncolor = Column(String)

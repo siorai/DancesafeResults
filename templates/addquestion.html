@@ -3,7 +3,8 @@
     <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
-
+        <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link href="../static/css/bootstrap-colorpicker.min.css" rel="stylesheet">
 		<!-- Website CSS style -->
 		<link rel="stylesheet" type="text/css" href="../static/css/newuser.css">
 
@@ -103,24 +104,28 @@
 							</div>
 						</div>
                         <div class="form-group">
-                            <label for="name" class="cols-sm-4 control-label">Reagent Results</label>
-
-                            {%  for eachreagent in reagentlist: %}
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="{{ eachreagent }}1" id="{{ eachreagent }}1" placeholder="{{ eachreagent }}1"/>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="{{ eachreagent }}2" id="{{ eachreagent }}2" placeholder="{{ eachreagent }}2"/>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" class="form-control" name="{{ eachreagent }}3" id="{{ eachreagent }}3" placeholder="{{ eachreagent }}3"/>
+                            <label for="name" class="cols-sm-2 control-label">Marquis</label>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="cp2" class="input-group colorpicker-component">
+                                    <input type="text" value="#00AABB" class="form-control">
+                                    <span class="input-group-addon"><i></i></span>
                                 </div>
                             </div>
-                            {% endfor %}
-
-
+                            <div class="col-md-4">
+                                <div id="cp22" class="input-group colorpicker-component">
+                                    <input type="text" value="#00AABB" class="form-control">
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="cp222" class="input-group colorpicker-component">
+                                    <input type="text" value="#00AABB" class="form-control">
+                                    <span class="input-group-addon"><i></i></span>
+                                </div>
+                            </div>
                         </div>
+                    </form>
                         <div class="form-group ">
 							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Submit Sample Data</button>
 						</div>
@@ -131,8 +136,30 @@
 				</div>
 			</div>
 		</div>
+        <script src="../static/js/jquery.js"></script>
+		<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+        <script src="../static/js/prettify.js"></script>
+             <script src="../static/js/bootstrap-colorpicker.js"></script>
+        <script>
+            if (top.location != location) {
+                top.location.href = document.location.href ;
+            }
+		    $(function(){
+			window.prettyPrint && prettyPrint()
+			$('#cp1').colorpicker({
+				format: 'hex'
+			});
+			$('#cp2').colorpicker();
+			$('#cp222').colorpicker();
+			$('#cp22').colorpicker();
 
-		<script type="text/javascript" src="static/js/bootstrap.js"></script>
+			$('#cp3').colorpicker();
+			var bodyStyle = $('body')[0].style;
+			$('#cp4').colorpicker().on('changeColor', function(ev){
+				bodyStyle.backgroundColor = ev.color.toHex();
+			});
+		});
+	    </script>
 <script type="text/javascript">
 
 </script>
