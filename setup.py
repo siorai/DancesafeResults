@@ -1,12 +1,13 @@
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(
     name='Dancesafe',
     version='',
-    packages=[''],
+    packages=find_packages(),
     url='',
     license='',
     author='Leviathan',
     author_email='',
-    description='', requires=['wtforms', 'flask', 'sqlalchemy', 'wtforms', 'flask-bootstrap', 'psycopg2']
+    description='', 
+    install_requires=['wtforms', 'flask', 'sqlalchemy', 'wtforms', 'flaskbootstrap', 'psycopg2']
 )
