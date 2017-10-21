@@ -7,7 +7,9 @@ from sqlalchemy.sql import func, text
 from wtforms import RadioField, SelectField, DateTimeField, IntegerField, Form, BooleanField, StringField, PasswordField, validators
 
 
-engine = create_engine("postgresql://postgres:ultimate@localhost:5432", echo=True)
+from secrets import pgSecret
+
+engine = create_engine(pgSecret, echo=True)
 
 Base = declarative_base()
 

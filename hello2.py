@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
-
+from secrets import secret_key
 #  import MySQLdb
 
 from Alchemy import *
@@ -248,20 +248,10 @@ def add_data_test():
 
 
 
-def pullUUID(fromTable=None, name=None):
-    if fromTable == 'user':
-        for id, in session.query(User.id).filter_by(fullname=name):
-            print(id)
-            return id
-    if fromTable == 'event':
-        for id, in session.query(EventInfo.id).filter_by(name=name):
-            print(id)
-            return id
-
 # def populateTestsTable():
 
 
 
-app.secret_key = '55823c2e-b31b-4eaf-a44b-025c7fbb1645'
+app.secret_key = secret_key
 
 app.run(host='0.0.0.0',port=5001)
