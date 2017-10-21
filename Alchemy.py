@@ -60,7 +60,7 @@ class TestingTesting(Base):
 class User(Base):
     __tablename__ = 'users'
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("uuid_generate_v4()"))
     username = Column(String(30), unique=True, nullable=False)
     fullname = Column(String(100), unique=True, nullable=False)
     email = Column(String(50), unique=True, nullable=False)
@@ -93,7 +93,7 @@ class NewUser(Form):
 class EventInfo(Base):
     __tablename__ = 'eventinfo'
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("uuid_generate_v4()"))
     name = Column(String(50), nullable=False)
     year = Column(Integer, nullable=False)
     city = Column(String(50), nullable=False)
@@ -422,7 +422,7 @@ class Sample(Base):
 class SampleTest(Base):
     __tablename__ = 'sampletest'
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("uuid_generate_v4()"))
     chapterName = Column(String)
     eventid = Column(UUID(as_uuid=True), ForeignKey('eventinfo.id'))
     shiftLead = Column(UUID(as_uuid=True), ForeignKey('users.id'))
@@ -462,7 +462,7 @@ class Tests(Base):
 class TestResults(Base):
     __tablename__ = 'testresults'
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4())
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("uuid_generate_v4()"))
     sampleid = Column(Integer, ForeignKey('sample.id'))
     testid = Column(Integer, ForeignKey('tests.id'))
     reactioncolor = Column(String)
