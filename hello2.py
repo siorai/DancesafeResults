@@ -6,10 +6,18 @@ from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from secrets import secret_key
 #  import MySQLdb
 
-from alchemy import * 
+from Alchemy import *
 
-from pprint import pprint
 app = Flask(__name__)
+
+#db = MySQLdb.connect(
+#        host="localhost",
+#        user="root",
+#        passwd="dancesafedancesafe",
+#        db="DS_Testing"
+#        )
+
+# cur = db.cursor()
 
 Base.metadata.create_all(engine)
 
@@ -18,7 +26,6 @@ Base.metadata.create_all(engine)
 @app.route('/')
 def hello_world():
     return 'Hello World!'
-
 
 def fetchList(listName=None):
     """
@@ -29,6 +36,7 @@ def fetchList(listName=None):
         ie event, user, chapter, question
     :return: list of entries pulled from tables
     """
+
 
     if listName == 'event':
         eventlist = []
@@ -62,6 +70,111 @@ def fetchList(listName=None):
         return reagentlist
 
 
+@app.route('/add_data', methods=['GET','POST'])
+def add_data():
+    #eventlist = []
+    #for eachEvent in session.query(EventInfo.name, EventInfo.year):
+    #    eventlist.append(eachEvent)
+    #print(eventlist)
+    #userlist = []
+    #for eachUser in session.query(User.fullname):
+    #    userlist.append(eachUser)
+    #print(userlist)
+    #chapterlist = []
+    #for eachChapter in session.query(User.chapter):
+    #    chapterlist.append(eachChapter)
+    #print(eachChapter)
+    eventlist = fetchList(listName='event')
+    userlist = fetchList(listName='user')
+    chapterlist = fetchList(listName='chapter')
+    questionlist = fetchList(listName='question')
+    form = SampleLazyForm(request.form)
+    if request.method == 'POST':
+        lazy = SampleLazy(form.chapterName.data,
+                          form.eventName.data,
+                          form.shiftLead.data,
+                          form.tester.data,
+                          form.recorder.data,
+                          form.substanceType.data,
+            form.substanceDesc.data,
+            form.substanceExpe.data,
+            form.substanceOther.data,
+            form.marquis1.data,
+            form.marquis2.data,
+            form.marquis3.data,
+            form.mecke1.data,
+            form.mecke2.data,
+            form.mecke3.data,
+            form.mandolin1.data,
+            form.mandolin2.data,
+            form.mandolin3.data,
+            form.simon1.data,
+            form.simon2.data,
+            form.simon3.data,
+            form.liebermann1.data,
+            form.liebermann2.data,
+            form.liebermann3.data,
+            form.froehde1.data,
+            form.froehde2.data,
+            form.froehde3.data,
+            form.folin1.data,
+            form.folin2.data,
+            form.folin3.data,
+            form.ehrlich1.data,
+            form.ehrlich2.data,
+            form.ehrlich3.data,
+            form.conclusivebool.data,
+            form.conclusiveresult.data,
+            form.question1.data,
+            form.answer1.data,
+            form.question2.data,
+            form.answer2.data,
+            form.question3.data,
+            form.answer3.data,
+            form.question4.data,
+            form.answer4.data,
+            form.question5.data,
+            form.answer5.data,
+            form.question6.data,
+            form.answer6.data,
+            form.question7.data,
+            form.answer7.data,
+            form.question8.data,
+            form.answer8.data,
+            form.question9.data,
+            form.answer9.data,
+            form.question10.data,
+            form.answer10.data,
+            form.question11.data,
+            form.answer11.data)
+
+        session.add(lazy)
+        session.commit()
+
+        # session.add(
+        #         EventInfo(name=eventName,year=eventYear))
+        # session.commit()
+        # for row in session.query(EventInfo):
+        #     print(row)
+        print("hey")
+        
+        chapterName = request.form['chapterName']
+        eventName = request.form['eventName']
+        shiftLead = request.form['shiftLead']
+        tester = request.form['tester']
+        recorder = request.form['recorder']
+                    
+        #session.add(
+        #        User(
+
+        # shiftleadName = request.form['shiftleadName']
+
+        # query = "INSERT INTO Testing1(chapterName, eventName, eventYear, shiftleadName) VALUES(%s,%s,%s,%s)"
+        # cur.execute(query, (chapterName, eventName, shiftleadName))
+        # db.commit()
+        # return render_template('survey.html', request.form['eventName'], request.form['eventYear'])
+        return redirect(url_for('add_data'))
+    return render_template('survey.html', chapterlist=chapterlist, eventlist=eventlist, userlist=userlist, questionlist=questionlist, form=form)
 
 @app.route('/add_event', methods=['GET','POST'])
 def add_event():
@@ -72,6 +185,8 @@ def add_event():
                           form.city.data,
                           form.state.data,
                           form.region.data)
+                          #form.datestart.data,
+                          #form.dateend.data
         session.add(event)
         session.commit()
         for row in session.query(EventInfo):
@@ -101,33 +216,14 @@ def add_question():
     reagentlist = fetchList(listName='reagent')
     form = NewQuestion(request.form)
     if request.method == 'POST':
+        detail = Questions(form.detail.data)
+        session.add(question)
+        session.commit()
         for row in session.query(Questions):
             print(row)
-        reactionIDList = fetchReagentColorIDs()
-        for i in reactionIDList:
-            print(i)
-        pprint(form.data)
         return redirect(url_for('add_question'))
     return render_template('addquestion.html', chapterlist=chapterlist, eventlist=eventlist, userlist=userlist, questionlist=questionlist, reagentlist=reagentlist, form=form)
 
-
-def fetchReagentColorIDs():
-    """
-    Fetches reagent reaction IDs in the same way the app generates them. By
-    pulling a list of the reagents inside the Reagent table and appending 1,2,3
-    to each reagent generating 3 for each one. 
-
-    Returns:
-        reactionIDList: List of IDs that can be called to extract variables.
-    """
-    
-    reactionIDList = []
-    reagentList = fetchList(listName='reagent')
-    for eachReagent in reagentList:
-        reactionIDList.append("%sid%i" % (eachReagent,1))
-        reactionIDList.append("%sid%i" % (eachReagent,2))
-        reactionIDList.append("%sid%i" % (eachReagent,3))
-    return reactionIDList 
 
 @app.route('/add_data_test', methods=['GET', 'POST'])
 def add_data_test():
@@ -136,114 +232,26 @@ def add_data_test():
     chapterlist = fetchList(listName='chapter')
     questionlist = fetchList(listName='question')
     reagentlist = fetchList(listName='reagent')
-    form = request.form
+    form = SampleTestForm(request.form)
     if request.method == 'POST':
         data = SampleTest()
-        
-        # data.eventid = session.query(EventInfo.id).filter_by(name=form.eventName.data).first()
-        # data.shiftLead = pullUUID(fromTable='user', name=request.form['shiftLead'])
-        # data.tester = pullUUID(fromTable='user', name=request.form['tester'])
-        # data.recorder = pullUUID(fromTable='user', name=request.form['recorder'])
-        # session.add(data)
-        # session.commit()
-        pprint(form.data)
+        print("Attempting to print form.eventName.data now")
+        print(type(form.eventName.data))
+        data.eventid = session.query(EventInfo.id).filter_by(name=form.eventName.data).first()
+        data.shiftLead = pullUUID(fromTable='user', name=request.form['shiftLead'])
+        data.tester = pullUUID(fromTable='user', name=request.form['tester'])
+        data.recorder = pullUUID(fromTable='user', name=request.form['recorder'])
+        session.add(data)
+        session.commit()
         return redirect(url_for('add_data_test'))
     return render_template('survey.html', reagentlist=reagentlist, chapterlist=chapterlist, eventlist=eventlist, userlist=userlist, questionlist=questionlist, form=form)
 
-@app.route('/add_data_test2')
-def add_data_test2():
-    eventlist = fetchList(listName='event')
-    userlist = fetchList(listName='user')
-    chapterlist = fetchList(listName='chapter')
-    questionlist = fetchList(listName='question')
-    reagentlist = fetchList(listName='reagent')
-    return render_template('survey.html', reagentlist=reagentlist, chapterlist=chapterlist, eventlist=eventlist, userlist=userlist, questionlist=questionlist)
-
-@app.route('/data_result', methods = ['POST', 'GET'])
-def data_result():
-    if request.method == 'POST':
-        result = request.form
-        r = request.form.to_dict()
-        
-              
-
-        sampleTableData = SampleTest(
-                chapterName=r['chapterName'],
-                eventid=session.query(EventInfo.id).filter_by(name=r['eventName']),
-                shiftLead=session.query(User.id).filter_by(fullname=r['shiftLead']),
-                tester=session.query(User.id).filter_by(fullname=r['tester']),
-                recorder=session.query(User.id).filter_by(fullname=r['recorder'])
-                )
-        session.add(sampleTableData)
-        session.commit()
-        sampleUUID = session.query(SampleTest.id).order_by(SampleTest.ts.desc()).first()
-        colorIDs = fetchReagentColorIDs()
-        for eachReaction in colorIDs:
-                reactionData = TestResults(
-                    sampleid=sampleUUID,
-                    testid=eachReaction,
-                    reactioncolor=r[eachReaction]
-                )
-                if r[eachReaction]:
-                    session.add(reactionData)
-                    session.commit()
-                    print(r[eachReaction])
-                else:
-                    pass
-        
-
-        """        
-        chapterName
-        eventName
-        shiftLead
-        tester
-        recorder
-        substanceType
-        substanceDesc': '', '
-        substanceExpe': '', '
-        substanceOther': '', '
-        Marquisid1': '', '
-        Marquisid2': '', '
-        Marquisid3': '', '
-        Meckeid1': '', '
-        Meckeid2': '', '
-        Meckeid3': '', 
-        Mandolinid1': '', '
-        Mandolinid2': '', '
-        Mandolinid3': '', '
-        Simonid1': '', '
-        Simonid2': '', '
-        Simonid3': '', '
-        Liebermannid1': '', '
-        Liebermannid2': '', '
-        Liebermannid3': '', '
-        Froehdeid1': '', '
-        Froehdeid2': '', '
-        Froehdeid3': '', '
-        Folinid1': '', '
-        Folinid2': '', '
-        Folinid3': '', '
-        Ehrlichid1': '', '
-        Ehrlichid2': '', '
-        Ehrlichid3': '', '
-        conclusiveresult': '', '
-        answer4': '', '
-        question9': '', '
-        answer9': '', '
-        question10': '', '
-        answer10': '', '
-        question11
-        answer11
-        overallcomments
 
 
-
-
-        """
-        return render_template("data_result.html", r=r, result = result)
+# def populateTestsTable():
 
 
 
 app.secret_key = secret_key
 
-app.run(host='0.0.0.0', port=5001)
+app.run(host='0.0.0.0',port=5001)

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+        <script src="//code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link href="../static/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+        <script src="../static/js/bootstrap-colorpicker.js"></script>
+		<!-- Website CSS style -->
+		<link rel="stylesheet" type="text/css" href="../static/css/newuser.css">
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+		<title>Submit Data</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<h1 class="title">Submit Data</h1>
+	               		<hr />
+	               	</div>
+	            </div>
+				<div class="main-login main-center">
+					<form class="form-horizontal" method="post" action="#">
+
+						<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Chapter Name</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <select name="chapterName" class="form-control" id="chapterName">
+                                        {% for i in chapterlist: %}
+                                            <option id="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                        </select>
+								</div>
+							</div>
+						</div>
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Event Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <select name="eventName" class="form-control" id="eventName">
+                                            {% for i in eventlist: %}
+                                                <option id="{{ i }}">{{ i }}</option>
+                                            {% endfor %}
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Shift Lead</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                        <select name="shiftLead" class="form-control" id="shiftLead">
+                                            {% for i in userlist: %}
+                                                <option id="{{ i }}">{{ i }}</option>
+                                            {% endfor %}
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Tester</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <select name="tester" class="form-control" id="tester">
+                                        {% for i in userlist: %}
+                                            <option id="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">Recorder</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <select name="recorder" class="form-control" id="recorder">
+                                        {% for i in userlist: %}
+                                            <option id="{{ i }}">{{ i }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+				    	<div class="form-group">
+							<label for="name" class="cols-sm-2 control-label">Substance Type</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="substanceType" id="substanceType"/>
+								</div>
+							</div>
+						</div>
+                        {%  for eachreagent in reagentlist: %}
+                            <div class="form-group">
+                                <label for="name" class="col-12 col-md-auto control-label">{{ eachreagent }}</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div id="{{ eachreagent }}id" class="{{ eachreagent }}picker1 input-group colorpicker-component" data-color="rgb(255, 0, 0)">
+                                            <input type="text" class="form-control"/>
+                                            <span class="input-group-addon"><i></i></span>
+                                        </div>
+                                    </div>
+                                    <script>$('.{{ eachreagent }}picker1').colorpicker();</script>
+                                    <div class="col-sm-4">
+                                        <div id="{{ eachreagent }}id2" class="{{ eachreagent }}picker2 input-group colorpicker-component" data-color="rgb(0, 255, 0">
+                                            <input type="text" class="form-control"/>
+                                            <span class="input-group-addon"><i></i></span>
+                                        </div>
+                                    </div>
+                                    <script>$('.{{ eachreagent }}picker2').colorpicker();</script>
+                                    <div class="col-sm-4">
+                                        <div id="{{ eachreagent }}id3" class="{{ eachreagent }}picker3 input-group colorpicker-component" data-color="rgb(0, 0, 255)">
+                                            <input type="text" class="form-control"/>
+                                            <span class="input-group-addon"><i></i></span>
+                                        </div>
+                                    </div>
+                                    <script>$('.{{ eachreagent }}picker3').colorpicker();</script>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        <div class="form-group ">
+							<button type="submit" class="btn btn-primary btn-lg btn-block login-button">Submit Sample Data</button>
+						</div>
+						<div class="login-register">
+				            <a href="/add_data">Back to submitting results...</a>
+				         </div>
+                    </form>
+
+            </div>
+        </div>
+        <script src="../static/js/jquery.js"></script>
+		<script type="text/javascript" src="../static/js/bootstrap.js"></script>
+        <script src="../static/js/prettify.js"></script>
+             <script src="../static/js/bootstrap-colorpicker.js"></script>
+        <script>
+
+            if (top.location != location) {
+                top.location.href = document.location.href ;
+            }
+		    $(function(){
+			window.prettyPrint && prettyPrint()
+			$('#cp1').colorpicker({
+				format: 'hex'
+			});
+
+
+
+
+
+			$('#cp4').colorpicker().on('changeColor', function(ev){
+				bodyStyle.backgroundColor = ev.color.toHex();
+			});
+		});
+	    </script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
