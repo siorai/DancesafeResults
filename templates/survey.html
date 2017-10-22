@@ -13,7 +13,7 @@
 		<div>
 			<h1>DanceSafe Reagentatrix</h1>			
 			<div>
-				<form action="/add_data_test" method="POST">
+				<form action="http://localhost:5001/data_result" method="POST">
 					<table>
                         {% if chapterName is defined %}
                         <tr>
@@ -150,126 +150,30 @@
 						<span>Other: </span>
 						<input type="text" name="substanceOther" id="substanceOther"/>
 					</div>
-					<table>
-						<tr>
-							<th>Reagent Name</th>
-							<th>Color 1</th>
-							<th>Color 2</th>
-							<th>Color 3</th>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Marquis</span>
-							</td>
-							<td>
-								<input type="text" name="marquis1"/>
-							</td>
-							<td>
-								<input type="text" name="marquis2"/>
-							</td>
-							<td>
-								<input type="text" name="marquis3"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Mecke</span>
-							</td>
-							<td>
-								<input type="text" name="mecke1"/>
-							</td>
-							<td>
-								<input type="text" name="mecke2"/>
-							</td>
-							<td>
-								<input type="text" name="mecke3"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Mandolin</span>
-							</td>
-							<td>
-								<input type="text" name="mandolin1"/>
-							</td>
-							<td>
-								<input type="text" name="mandolin2"/>
-							</td>
-							<td>
-								<input type="text" name="mandolin3"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Simon</span>
-							</td>
-							<td>
-								<input type="text" name="simon1"/>
-							</td>
-							<td>
-								<input type="text" name="simon2"/>
-							</td>
-							<td>
-								<input type="text" name="simon3"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Liebermann</span>
-							</td>
-							<td>
-								<input type="text" name="liebermann1"/>
-							</td>
-							<td>
-								<input type="text" name="liebermann2"/>
-							</td>
-							<td>
-								<input type="text" name="liebermann3"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Froehde</span>
-							</td>
-							<td>
-								<input type="text" name="froehde1"/>
-							</td>
-							<td>
-								<input type="text" name="froehde2"/>
-							</td>
-							<td>
-								<input type="text" name="froehde3"/>
-							</td>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Folin</span>
-							</td>
-							<td>
-								<input type="text" name="folin1" />
-							</td>
-							<td>
-								<input type="text" name="folin2" />
-							</td>
-							<td>
-								<input type="text" name="folin3" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span style="font-weight: bold;">Ehrlich</span>
-							</td>
-							<td>
-								<input type="text" name="ehrlich1" />
-							</td>
-							<td>
-								<input type="text" name="ehrlich2" />
-							</td>
-							<td>
-								<input type="text" name="ehrlich3" />
-							</td>
-						</tr>
-					</table>
-					<div>
+                    <table>
+                        <tr>
+                            <th>Reagent Name</th>
+                            <th>First Reaction</th>
+                            <th>Second Reaction</th>
+                            <th>Third Reaction</th>
+                        </tr>
+                        {% for eachreagent in reagentlist: %}
+                        <tr>
+                            <td>
+                                <span style="font-weight: bold;">{{ eachreagent }}</span>
+                            </td>
+                            <td>
+                                <input type="text" name="{{ eachreagent }}id1">
+                            </td>    
+                            <td>
+                                <input type="text" name="{{ eachreagent }}id2">
+                            </td>    
+                            <td>
+                                <input type="text" name="{{ eachreagent }}id3">
+                            </td>
+                            {% endfor %}    
+                    </table>
+                    <div>
 						<span>Conclusive Result?</span>
 						<input type="radio" name="conclusivebool" id="conclusivebool">Yes</input>
 						<input type="radio" name="conclusivebool" id="conclusivebool">No</input>

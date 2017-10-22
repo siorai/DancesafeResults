@@ -7,29 +7,37 @@
         <link href="../static/css/bootstrap-colorpicker.min.css" rel="stylesheet">
         <script src="../static/js/bootstrap-colorpicker.js"></script>
 		<!-- Website CSS style -->
-		<link rel="stylesheet" type="text/css" href="../static/css/newuser.css">
+		<!-- <link rel="stylesheet" type="text/css" href="../static/css/newuser.css"> -->
 
 		<!-- Website Font style -->
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="../static/css/mdb.css" rel="stylesheet">
 		<!-- Google Fonts -->
 		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
 
 		<title>Submit Data</title>
 	</head>
-	<body>
-		<div class="container">
+    <body>
+        
+        <nav class="navbar navbar-expand-lg navbar-light bg-faded">         
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+ 
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">Dancesafe</a>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="#">Survey <span class="sr-only">(Current)</span></a>
+                    <a class="nav-item nav-link" href="/add_user">Add User </a>
+                    <a class="nav-item nav-link" href="/add_event">Add Event </a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
 			<div class="row main">
-				<div class="panel-heading">
-	               <div class="panel-title text-center">
-	               		<h1 class="title">Submit Data</h1>
-	               		<hr />
-	               	</div>
-	            </div>
 				<div class="main-login main-center">
 					<form class="form-horizontal" method="post" action="#">
-
 						<div class="form-group">
 							<label for="name" class="cols-sm-2 control-label">Chapter Name</label>
 							<div class="cols-sm-10">
@@ -109,21 +117,21 @@
                                 <label for="name" class="col-12 col-md-auto control-label">{{ eachreagent }}</label>
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <div id="{{ eachreagent }}id" class="{{ eachreagent }}picker1 input-group colorpicker-component" data-color="rgb(255, 0, 0)">
-                                            <input type="text" class="form-control"/>
+                                        <div class="{{ eachreagent }}picker1 input-group colorpicker-component" data-color="rgb(255, 255, 255)">
+                                            <input id="{{ eachreagent}}id1" type="text" class="form-control"/>
                                             <span class="input-group-addon"><i></i></span>
                                         </div>
                                     </div>
                                     <script>$('.{{ eachreagent }}picker1').colorpicker();</script>
                                     <div class="col-sm-4">
-                                        <div id="{{ eachreagent }}id2" class="{{ eachreagent }}picker2 input-group colorpicker-component" data-color="rgb(0, 255, 0">
+                                        <div id="{{ eachreagent }}id2" class="{{ eachreagent }}picker2 input-group colorpicker-component" data-color="rgb(255, 255, 255)">
                                             <input type="text" class="form-control"/>
                                             <span class="input-group-addon"><i></i></span>
                                         </div>
                                     </div>
                                     <script>$('.{{ eachreagent }}picker2').colorpicker();</script>
                                     <div class="col-sm-4">
-                                        <div id="{{ eachreagent }}id3" class="{{ eachreagent }}picker3 input-group colorpicker-component" data-color="rgb(0, 0, 255)">
+                                        <div id="{{ eachreagent }}id3" class="{{ eachreagent }}picker3 input-group colorpicker-component" data-color="rgb(255, 255, 255)">
                                             <input type="text" class="form-control"/>
                                             <span class="input-group-addon"><i></i></span>
                                         </div>
@@ -147,7 +155,11 @@
         <script src="../static/js/prettify.js"></script>
              <script src="../static/js/bootstrap-colorpicker.js"></script>
         <script>
-
+        $(document).ready(function() {
+            $('.mdb-select').material_select();
+        });
+        </script>
+        <script>
             if (top.location != location) {
                 top.location.href = document.location.href ;
             }
