@@ -13,7 +13,7 @@
 		<div>
 			<h1>DanceSafe Reagentatrix</h1>			
 			<div>
-				<form action="/add_data_test" method="POST">
+				<form action="/data_result" method="POST">
 					<table>
                         {% if chapterName is defined %}
                         <tr>
@@ -150,6 +150,30 @@
 						<span>Other: </span>
 						<input type="text" name="substanceOther" id="substanceOther"/>
 					</div>
+                    <table>
+                        <tr>
+                            <th>Reagent Name</th>
+                            <th>First Color</th>
+                            <th>Second Color</th>
+                            <th>Third Color</th>
+                        </tr>
+                        {% for eachReagent in reagentlist: %}
+                        <tr>
+                            <td>
+                                <span style="font-weight: bold;">{{ eachReagent }}</span>
+                            </td>
+                            <td>
+                                <input type="text" name="{{ eachReagent }}id1"/>
+                            </td>
+                            <td>
+                                <input type="text" name="{{ eachReagent }}id2"/>
+                            </td>
+                            <td>
+                                <input type="text" name="{{ eachReagent }}id3"/>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
 					<table>
 						<tr>
 							<th>Reagent Name</th>

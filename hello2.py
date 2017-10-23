@@ -150,6 +150,7 @@ def data_result():
     if request.method == 'POST':
         result = request.form
         r = request.form.to_dict()
+        print(r)
         sampleTableData = SampleTest(
             chapterName=r['chapterName'],
             eventid=session.query(EventInfo.id).filter_by(name=r['eventName']),
