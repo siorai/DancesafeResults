@@ -18,6 +18,8 @@ Session = sessionmaker(bind=engine)
 
 session = Session()
 
+# Tables
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -30,6 +32,34 @@ class User(Base):
     email = Column(String(50), unique=True, nullable=False)
     facebookurl = Column(String(50), unique=True, nullable=True)
     chapter = Column(String(50), nullable=True)
+
+
+class Reactions(Base):
+    __tablename__ = 'reactions'
+
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("uuid_generate_v4()"))
+    reagent = Column(UUID(as_uuid=True))
+    reactionint = Column(Integer(2), unique=False, nullable=False)
+
+
+class Colors(Base):
+    __tablename__ = 'colors'
+
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("uuid_generate_v4()"))
+    name = Column(String)
+    color = Column(Integer)
+
+
+# in progress, needs back references
+class ReagentColorList(Base):
+    __tablename__ = 'colors'
+
+    reaction = Column(UUID(as_uuid=True))
+    color = Column(UUID(as_uuid=True))
 
 
 class NewUser(Form):
@@ -150,7 +180,8 @@ class TestResults(Base):
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
     sampleid = Column(Integer, ForeignKey('sample.id'))
-    testid = Column(String)
+    testid = Column(UUID(as_uuid=True),
+                    ForeignKey('reactionids.id'))
     reactioncolor = Column(String)
 
 
@@ -165,5 +196,10 @@ class ExpectedReactions(Base):
 class Reagent(Base):
     __tablename__ = 'reagent'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("uuid_generate_v4()"))
     name = Column(String)
+    author = Column(UUID(as_uuid=True))
+    datecreated = Column(DateTime)
+    description = Column(Text)
