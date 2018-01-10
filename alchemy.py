@@ -155,6 +155,9 @@ class Substances(Base):
                 server_default=sqlalchemy.text("gen_random_uuid()"))
     name = Column(String)
 
+    def __init__(self, name=None):
+        self.name = name
+
 
 class Survey(Base):
     __tablename__ = 'survey'

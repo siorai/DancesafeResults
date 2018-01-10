@@ -2,6 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_bcrypt import Bcrypt
 
 from secrets import secret_key
+from SubstancesMasterList import substancesList
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -102,10 +103,39 @@ def test_add():
         return redirect(url_for('show_all'))
     return render_template('adduser.html')
 
+
 @app.route('/')
 def show_all():
     return render_template('show_all.html')
-#
+
+
+@app.route('/add_substance', methods=['GET', 'POST'])
+def add_substance():
+    if request.method == 'POST':
+        substances = Substances(request.form['substance'])
+        session.add(substances)
+        session.commit()
+        print(substances)
+        return redirect(url_for('show_all'))
+    return render_template('addsubstance.html')
+
+
+@app.route('/AddMasterSubstanceList', methods=['GET'])
+def addmastersubstancelist():
+    if request.method == 'GET':
+        for eachSubstance in substancesList:
+            newSubstance = Substances(name=eachSubstance)
+            session.add(newSubstance)
+        session.commit()
+        dbsubstanceList = session.query(Substances.id, Substances.name)
+
+
+
+        return render_template('substancesindb.html', dbsubstanceList=dbsubstanceList)
+
+
+
+
 # @app.route('/add_question', methods=['GET', 'POST'])
 # def add_question():
 #     eventlist = fetchList(listName='event')
