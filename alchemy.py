@@ -2,8 +2,11 @@ import sqlalchemy
 from sqlalchemy import create_engine, Boolean, Column, Integer, String, Text, \
     ForeignKey, DateTime
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.dialects.postgresql import UUID
+
+from DancesafeResults import bcrypt
 
 from secrets import pgSecret
 
@@ -198,5 +201,25 @@ class Users(Base):
     facebookurl = Column(String(50), unique=True, nullable=True)
     instagram = Column(String(50), unique=True, nullable=True)
     chapter = Column(String(50), nullable=True)
-    password = Column(String, nullable=False)
+    _password = Column(String(128), nullable=False)
     ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
+
+    def __init__(self, username=None, fullname=None, email=None, facebookurl=None, instagram=None,
+                 chapter=None, _password=None):
+        self.username = username
+        self.fullname = fullname
+        self.email = email
+        self.facebookurl = facebookurl
+        self.instagram = instagram
+        self.chapter = chapter
+        self.password = _password
+
+    @hybrid_property
+    def password(self):
+        return self._password
+
+    @password.setter
+    def _set_password(self, plaintext):
+        self._password = bcrypt.generate_password_hash(plaintext).decode('utf-8')
+
+

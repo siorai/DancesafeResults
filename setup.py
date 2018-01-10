@@ -4,10 +4,10 @@ setup(
     name='Dancesafe',
     version='',
     packages=find_packages(),
-    url='',
+    url='https://github.com/siorai/DancesafeResults'
     license='',
     author='Leviathan',
     author_email='',
     description='', 
-    install_requires=['wtforms', 'flask', 'sqlalchemy', 'wtforms', 'flaskbootstrap', 'psycopg2']
+    install_requires=['wtforms', 'flask', 'flask-bcrypt', 'sqlalchemy', 'wtforms', 'flaskbootstrap', 'psycopg2']
 )

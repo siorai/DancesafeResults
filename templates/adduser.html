@@ -26,14 +26,34 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
-						
-						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">Your Name</label>
+					<form class="form-horizontal" action="{{ request.path }}" method="post">
+
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">Username</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">Password</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" name="password" id="password"  placeholder="Enter a password"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+							<label for="fullname" class="cols-sm-2 control-label">Your Name</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+									<input type="text" class="form-control" name="fullname" id="fullname"  placeholder="Enter your Name"/>
 								</div>
 							</div>
 						</div>
@@ -48,23 +68,36 @@
 							</div>
 						</div>
 
-						<div class="form-group">
-							<label for="username" class="cols-sm-2 control-label">Username</label>
-							<div class="cols-sm-10">
-								<div class="input-group">
-									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
-								</div>
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label for="facebookurl" class="cols-sm-2 control-label">Facebook URL</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-facebook fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="facebookurl" id="facebookurl" placeholder="Enter your facebook url"/>
+                                </div>
+                            </div>
+                        </div>
 
-						<div class="form-group">
+                        <div class="form-group">
+                            <label for="username" class="cols-sm-2 control-label">Instagram</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-instagram fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="instagram" id="instagram"  placeholder="Enter your instagram"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label for="username" class="cols-sm-2 control-label">Primary Dancesafe Chapter</label>
 							<div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
 									<input type="text" class="form-control" name="chapter" id="chapter"  placeholder="Enter your Username"/>
 								</div>
 							</div>
-					
+                        </div>
+
 
 
 
