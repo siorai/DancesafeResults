@@ -150,6 +150,8 @@ class Sample(Base):
 class Substances(Base):
     __tablename__ = 'substances'
 
+    # TODO Add author, desc, possibly others
+
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
@@ -194,6 +196,8 @@ class Questions(Base):
 
 class Users(Base):
     __tablename__ = 'users'
+
+    # TODO Speak with national about additional parameters to exist here
 
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
