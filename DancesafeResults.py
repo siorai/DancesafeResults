@@ -2,7 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, url_for
 from flask_bcrypt import Bcrypt
 
 from secrets import secret_key
-from SubstancesMasterList import substancesList
+from DatabaseMasterList import substancesList, reagentsList
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -119,6 +119,12 @@ def add_substance():
         return redirect(url_for('show_all'))
     return render_template('addsubstance.html')
 
+@app.route('/AddReagentList', methods=['GET', 'POST'])
+def addreagentlist():
+    if request.method == 'GET':
+        for eachReagent in reagentsList:
+
+
 
 @app.route('/AddMasterSubstanceList', methods=['GET'])
 def addmastersubstancelist():
@@ -129,9 +135,7 @@ def addmastersubstancelist():
         session.commit()
         dbsubstanceList = session.query(Substances.id, Substances.name)
 
-
-
-        return render_template('substancesindb.html', dbsubstanceList=dbsubstanceList)
+    return render_template('substancesindb.html', dbsubstanceList=dbsubstanceList)
 
 
 
