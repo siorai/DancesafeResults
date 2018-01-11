@@ -69,7 +69,7 @@ reagentsList = [
      "Paul Waldorf",
      "Two part specialty bottle reagent"
      ],
-    ["Ehrlich"
+    ["Ehrlich",
      "Paul Waldorf",
      "Specialty reagent for detecting presence of indole structures"
      ]

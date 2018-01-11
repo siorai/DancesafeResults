@@ -4,6 +4,8 @@ from flask_bcrypt import Bcrypt
 from secrets import secret_key
 from DatabaseMasterList import substancesList, reagentsList
 
+from sqlalchemy.dialects.postgresql import UUID
+
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 
@@ -123,6 +125,19 @@ def add_substance():
 def addreagentlist():
     if request.method == 'GET':
         for eachReagent in reagentsList:
+            authorUUID = session.query(Users.id).filter(Users.fullname==eachReagent[1]).one()
+            newReagent = Reagents(name=eachReagent[0], author=authorUUID, description=eachReagent[2])
+            session.add(newReagent)
+        session.commit()
+        dbreagentList = session.query(
+            Reagents.id,
+            Reagents.name,
+            Reagents.author,
+            Reagents.ts,
+            Reagents.description)
+        for row in session.query(Users).filter(Users.id==authorUUID).all():
+            authorName = row.fullname
+    return render_template('reagentsindb.html', dbreagentList=dbreagentList, authorName=authorName)
 
 
 

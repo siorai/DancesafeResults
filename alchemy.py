@@ -110,7 +110,7 @@ class Reagents(Base):
     author = Column(UUID(as_uuid=True),
                     ForeignKey('users.id'),
                     nullable=False)
-    datecreated = Column(DateTime)
+    ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
     description = Column(Text)
 
 
