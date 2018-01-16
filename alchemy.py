@@ -27,7 +27,7 @@ class Colors(Base):
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
-    name = Column(String, nullable=False)
+    name = Column(String, nullable=False, unique=True)
     hex = Column(Integer, nullable=True)
 
 

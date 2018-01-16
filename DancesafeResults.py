@@ -2,6 +2,8 @@ import bcrypt
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask.ext.bcrypt import Bcrypt
 
+from sqlalchemy import exists
+
 import json
 
 from pprint import pprint
@@ -161,11 +163,12 @@ def addreagentlist():
 
 @app.route('/AddColorReactions', methods=['GET', 'POST'])
 def addcolorreactions():
+    dbsubstancesList = session.query(Substances)
+    dbreactionList = session.query(Reactions)
+    dbreagentList = session.query(Reagents).order_by(Reagents.ts)
+    dbcolorList = session.query(Colors.id)
+    print(type(dbcolorList))
     if request.method == 'GET':
-        dbsubstancesList = session.query(Substances)
-        dbreactionList = session.query(Reactions)
-        dbreagentList = session.query(Reagents).order_by(Reagents.ts)
-
         dbDict = dict()
         for reagents in dbreagentList:
             dbDict.update({reagents.name: {
@@ -182,6 +185,30 @@ def addcolorreactions():
                                dbsubstancesList=dbsubstancesList,
                                dbreactionList=dbreactionList,
                                dbDict=dbDict)
+    for eachReaction in dbreactionList:
+            # expectedreaction = ExpectedReactions(reactionid=eachreaction)
+        colorname = request.form['ReactionID - {}'.format(eachReaction.id)]
+        if colorname == "No Reaction":
+            pass
+        else:
+            if session.query(Colors.name).filter(Colors.name == colorname).scalar() is None:
+                addcolor = Colors(name=colorname)
+                session.add(addcolor)
+                print("You added {}!".format(colorname))
+                session.commit()
+            else:
+                print("Already have it!")
+            colorid = session.query(Colors.id).filter(Colors.name == colorname).scalar()
+            substanceid = session.query(Substances.id).\
+                filter(Substances.name == request.form['substanceName']).\
+                scalar()
+            reactionid = eachReaction.id
+            addreaction = ExpectedReactions(substanceid=substanceid, reactionid=reactionid, colorid=colorid)
+            session.add(addreaction)
+            session.commit()
+
+    #return render_template('addsubstance.html')
+
 
 
 @app.route('/AddReactionList', methods=['GET'])
