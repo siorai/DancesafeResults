@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Chapter Name
+    Drop down list, compiled from users.Chapter
+    defaults to last selected
+Event Name
+    Drop down list, compiled from events.Name joined with events.Year
+    defaults to last selected
+    stored as event's UUID
+Shiftlead Name
+    Drop down list, compiled from users.Name
+    defaults to last selected
+    stored as user's UUID
+Tester Name
+    Drop down list, compiled from users.Name
+    defaults to last selected
+    stored as user's UUID
+Recorder Name
+    Drop down list, compiled from users.Name
+    defaults to last selected
+    stored as user's UUID
+
+Substance Type
+    Drop down list, compiled from substances.Name
+    stored as substances.id
+
+Suspected to be
+Ground score bool
+
+Table
+    for each reagent:
+    Reagent Name
+        reaction 1      reaction 2      reaction 3
+
+
+
+Sample entries to be filled
+
+    UUID     ★ id
+    UUID     ☆ eventid
+    UUID     ☆ finalconclusion
+*    UUID     ☆ initialsuspect
+*    UUID     ☆ recorder
+*    UUID     ☆ shiftlead
+*    UUID     ☆ tester
+*    UUID     ☆ typeid
+    BOOLEAN  ⚪ conclusiveresult
+    TEXT     ⚪ description
+*    BOOLEAN  ⚪ groundscore
+    DATETIME ⚪ ts
+
+
+
+</body>
+</html>

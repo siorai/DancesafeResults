@@ -1,5 +1,10 @@
+import bcrypt
 from flask import Flask, flash, redirect, render_template, request, url_for
-from flask_bcrypt import Bcrypt
+from flask.ext.bcrypt import Bcrypt
+
+import json
+
+from pprint import pprint
 
 from secrets import secret_key
 from DatabaseMasterList import substancesList, reagentsList
@@ -105,6 +110,21 @@ def test_add():
         return redirect(url_for('show_all'))
     return render_template('adduser.html')
 
+@app.route('/test', methods=['GET', 'POST'])
+def new_survey():
+    if request.method == 'GET':
+        masterDict = dict(eventList={}, userList={}, chapterList=set())
+        for row in session.query(Events):
+            masterDict["eventList"]["{} - {}".format(row.name, row.year)] = {"name": "{}".format(row.name),
+                                                                           "year": "{}".format(row.year),
+                                                                           "id": "{}".format(row.id)}
+        for row in session.query(Users):
+            masterDict["userList"]["{}".format(row.fullname)] = {"fullname": "{}".format(row.fullname),
+                                                                 "id": "{}".format(row.id)}
+            masterDict["chapterList"].add(row.chapter)
+
+        pprint(masterDict)
+        return render_template('addsubstance.html')
 
 @app.route('/')
 def show_all():
@@ -139,7 +159,46 @@ def addreagentlist():
             authorName = row.fullname
     return render_template('reagentsindb.html', dbreagentList=dbreagentList, authorName=authorName)
 
+@app.route('/AddColorReactions', methods=['GET', 'POST'])
+def addcolorreactions():
+    if request.method == 'GET':
+        dbsubstancesList = session.query(Substances)
+        dbreactionList = session.query(Reactions)
+        dbreagentList = session.query(Reagents).order_by(Reagents.ts)
 
+        dbDict = dict()
+        for reagents in dbreagentList:
+            dbDict.update({reagents.name: {
+                "ReagentUUID": reagents.id,
+                "ReactionDetails": []
+                }
+            })
+            for eachreaction in dbreactionList.filter(Reactions.reagentid==reagents.id):
+                dbDict[reagents.name]["ReactionDetails"].append([eachreaction.id, eachreaction.reactionint])
+        print("*****START*****")
+        pprint(dbDict)
+        print("*****END*****")
+        return render_template('addcolorreactions.html',
+                               dbsubstancesList=dbsubstancesList,
+                               dbreactionList=dbreactionList,
+                               dbDict=dbDict)
+
+
+@app.route('/AddReactionList', methods=['GET'])
+def addreactionlist():
+    if request.method == 'GET':
+        for eachReagent in session.query(Reagents):
+            newReaction1 = Reactions(reagentid=eachReagent.id, reactionint=0)
+            session.add(newReaction1)
+            newReaction2 = Reactions(reagentid=eachReagent.id, reactionint=1)
+            session.add(newReaction2)
+            newReaction3 = Reactions(reagentid=eachReagent.id, reactionint=2)
+            session.add(newReaction3)
+        session.commit()
+        dbreactionList = session.query(Reactions, Reagents).\
+                                 filter(Reactions.reagentid==Reagents.id).\
+                                 all()
+    return render_template('dbreactionlist.html', dbreactionList=dbreactionList)
 
 @app.route('/AddMasterSubstanceList', methods=['GET'])
 def addmastersubstancelist():

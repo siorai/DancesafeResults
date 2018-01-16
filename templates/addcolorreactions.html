@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+
+    <!-- Website CSS style -->
+    <link rel="stylesheet" type="text/css" href="../static/css/newuser.css">
+
+    <!-- Website Font style -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+    <title> Add Expected Color Reactions per Substance</title>
+</head>
+<body>
+<div class="container">
+    <div class="row main">
+        <div class="panel-heading">
+            <div class="panel-title text-center">
+                <h1 class="title">Add color reactions</h1>
+                <hr />
+            </div>
+        </div>
+        <div class="main-login main-center">
+            <form class="form-horizontal" action="{{ request.path }}" method="post">
+
+                <div class="form-group">
+                    <label for="substance" class="cols-sm-2 control-label">Substance</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-flask fa" aria-hidden="true"></i></span>
+                            <select name="substanceName" class="form-control form-control-lg">
+                                {% for eachSubstance in dbsubstancesList: %}
+                                <option>{{ eachSubstance.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                {% for Dict in dbDict: %}
+                <div class="form-group">
+                    <label for="{{ Dict }}" class="cols-sm-2 control-label">{{ Dict }}</label>
+                    <div class="input-group">
+                        <div class="row">
+                            <div class="cols-sm-4">
+                                <input type="text" class="form-control" name="ReactionID - {{ dbDict[Dict]["ReactionDetails"][0][0] }}"/>
+                            </div>
+                            <div class="cols-sm-4">
+                                <input type="text" class="form-control" name="ReactionID - {{ dbDict[Dict]["ReactionDetails"][1][0] }}"/>
+                            </div>
+                            <div class="cols-sm-4">
+                                <input type="text" class="form-control" name="ReactionID - {{ dbDict[Dict]["ReactionDetails"][2][0] }}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Testin'</button>
+                </div>
+                <div class="login-register">
+                    <a href="/add_data">Back to submitting results...</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="assets/js/bootstrap.js"></script>
+</body>
+</html>

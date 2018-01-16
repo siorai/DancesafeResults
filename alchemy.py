@@ -180,7 +180,8 @@ class TestResults(Base):
                       nullable=False)
     reactionid = Column(UUID(as_uuid=True),
                         ForeignKey('reactions.id'))
-    reactioncolor = Column(String)
+    reactioncolor = Column(UUID(as_uuid=True),
+                           ForeignKey('colors.id'))
 
 
 class Questions(Base):
