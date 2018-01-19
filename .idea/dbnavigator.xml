@@ -31,11 +31,32 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="e59937a6-275f-4218-8ec0-e364a4569ffd">
-      <console name="Seedbox Database" type="STANDARD" />
+      <console name="Seedbox Database" type="STANDARD"><![CDATA[CREATE TABLE IF NOT EXISTS dnd_characterclassvariant (
+  id int(11) NOT NULL,
+  character_class_id int(11) NOT NULL,
+  rulebook_id int(11) NOT NULL,
+  page smallint(5)  DEFAULT NULL,
+  advancement text NOT NULL,
+  advancement_html text NOT NULL,
+  class_features text NOT NULL,
+  skill_points smallint(5)  DEFAULT NULL,
+  hit_die smallint(5)  DEFAULT NULL,
+  alignment varchar(256) NOT NULL,
+  class_features_html text NOT NULL,
+  requirements text NOT NULL,
+  requirements_html text NOT NULL,
+  required_bab smallint(5)  DEFAULT NULL,
+  starting_gold varchar(32) NOT NULL,
+  PRIMARY KEY (id),
+  UNIQUE (id)
+);]]></console>
+    </connection>
+    <connection id="dc161934-d888-4860-adef-dc062bac4de2">
+      <console name="Connection" type="STANDARD" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-list connection-id="e59937a6-275f-4218-8ec0-e364a4569ffd" dataset="public.users" active-filter-id="51949b9f-6f54-4639-8976-b5307dc29c50">
+    <filter-list connection-id="e59937a6-275f-4218-8ec0-e364a4569ffd" dataset="public.users" active-filter-id="EMPTY_FILTER">
       <filter id="51949b9f-6f54-4639-8976-b5307dc29c50" name="Filter" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
       </filter>
@@ -60,7 +81,9 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="POSTGRES" interface-id="bcad9238-f82c-4a7d-9c66-961223f6eccd" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -82,6 +105,82 @@
           <empty-password value="false" />
           <user value="postgres" />
           <password value="dWx0aW1hdGU=" />
+        </database>
+        <properties>
+          <auto-commit value="false" />
+        </properties>
+        <ssh-settings>
+          <active value="false" />
+          <proxy-host value="" />
+          <proxy-port value="22" />
+          <proxy-user value="" />
+          <proxy-password value="" />
+          <auth-type value="PASSWORD" />
+          <key-file value="" />
+          <key-passphrase value="" />
+        </ssh-settings>
+        <details>
+          <charset value="UTF-8" />
+          <ddl-file-binding value="true" />
+          <database-logging value="false" />
+          <connect-automatically value="true" />
+          <restore-workspace value="true" />
+          <restore-workspace-deep value="true" />
+          <environment-type value="default" />
+          <idle-time-to-disconnect value="30" />
+          <password-expiry-time value="10" />
+          <max-connection-pool-size value="7" />
+          <alternative-statement-delimiter value="" />
+        </details>
+        <object-filters hide-empty-schemas="false">
+          <object-type-filter use-master-settings="false">
+            <object-type name="SCHEMA" enabled="true" />
+            <object-type name="USER" enabled="true" />
+            <object-type name="ROLE" enabled="true" />
+            <object-type name="PRIVILEGE" enabled="true" />
+            <object-type name="CHARSET" enabled="true" />
+            <object-type name="TABLE" enabled="true" />
+            <object-type name="VIEW" enabled="true" />
+            <object-type name="MATERIALIZED_VIEW" enabled="true" />
+            <object-type name="NESTED_TABLE" enabled="true" />
+            <object-type name="COLUMN" enabled="true" />
+            <object-type name="INDEX" enabled="true" />
+            <object-type name="CONSTRAINT" enabled="true" />
+            <object-type name="DATASET_TRIGGER" enabled="true" />
+            <object-type name="DATABASE_TRIGGER" enabled="true" />
+            <object-type name="SYNONYM" enabled="true" />
+            <object-type name="SEQUENCE" enabled="true" />
+            <object-type name="PROCEDURE" enabled="true" />
+            <object-type name="FUNCTION" enabled="true" />
+            <object-type name="PACKAGE" enabled="true" />
+            <object-type name="TYPE" enabled="true" />
+            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
+            <object-type name="ARGUMENT" enabled="true" />
+            <object-type name="DIMENSION" enabled="true" />
+            <object-type name="CLUSTER" enabled="true" />
+            <object-type name="DBLINK" enabled="true" />
+          </object-type-filter>
+          <object-name-filters />
+        </object-filters>
+      </connection>
+      <connection id="dc161934-d888-4860-adef-dc062bac4de2" active="true">
+        <database>
+          <name value="Connection" />
+          <description value="" />
+          <database-type value="POSTGRES" />
+          <config-type value="BASIC" />
+          <database-version value="9999.0" />
+          <driver-source value="BUILTIN" />
+          <driver-library value="" />
+          <driver value="" />
+          <url-type value="DATABASE" />
+          <host value="localhost" />
+          <port value="5432" />
+          <database value="postgres" />
+          <os-authentication value="false" />
+          <empty-password value="false" />
+          <user value="" />
+          <password value="" />
         </database>
         <properties>
           <auto-commit value="false" />
@@ -258,8 +357,8 @@
         <large-value-preview-active value="true" />
       </general>
       <filters>
-        <prompt-filter-dialog value="true" />
-        <default-filter-type value="BASIC" />
+        <prompt-filter-dialog value="false" />
+        <default-filter-type value="NONE" />
       </filters>
       <qualified-text-editor text-length-threshold="300">
         <content-types>
@@ -282,7 +381,7 @@
     </dataset-editor-settings>
     <code-editor-settings>
       <general>
-        <show-object-navigation-gutter value="false" />
+        <show-object-navigation-gutter value="true" />
         <show-spec-declaration-navigation-gutter value="true" />
       </general>
       <confirmations>
@@ -456,7 +555,9 @@
         <target-connection value="ASK" />
       </statement-execution>
       <script-execution>
-        <command-line-interfaces />
+        <command-line-interfaces>
+          <value id="bcad9238-f82c-4a7d-9c66-961223f6eccd" name="PostgreSQL terminal" executable-path="C:/PostgreSQL/pg10/bin/postgres.exe" database-type="POSTGRES" />
+        </command-line-interfaces>
         <execution-timeout value="300" />
       </script-execution>
       <method-execution>
