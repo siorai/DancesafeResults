@@ -368,4 +368,4 @@ def addmastermateriallist():
 app.secret_key = secret_key
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5005, ssl_context='adhoc')
