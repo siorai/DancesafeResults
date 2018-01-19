@@ -15,19 +15,6 @@
 		<!-- Google Fonts -->
 		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="../static/css/tinycolorpicker.css" type="text/css" media="screen">
-        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-        <script src="../static/js/jquery.tinycolorpicker.js"></script>
-        <script type="text/javascript">
-
-		    $(document).ready(function()
-            {
-			    var $box = $('#colorPicker');
-                $box.tinycolorpicker();
-		    });
-        </script>
-
-
 		<title>Dancesafe Results v0.5</title>
 	</head>
     <body>
@@ -141,12 +128,13 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="input-group">
-                                            <div id="colorPicker">
-        <a class="color"><div class="colorInner"></div></a>
-        <div class="track" style="background-image: none;"><canvas width="150" height="150"></canvas></div>
-        <ul class="dropdown"></ul>
-        <input type="hidden" class="colorInput">
-    </div>
+                                            <select class="form-control" name="recorder" id="recorder"/>
+                                            {% for eachType in masterDict["colorDict"].keys(): %}
+                                                <div class="bg-inverse">
+                                                    <option style="background-color:{{ eachType }}" value="{{ eachType }}">{{ eachType }}</option>
+                                                </div>
+                                            {% endfor %}
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
