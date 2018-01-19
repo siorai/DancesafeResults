@@ -220,7 +220,7 @@ class Users(Base):
         self.facebookurl = facebookurl
         self.instagram = instagram
         self.chapter = chapter
-        self.password = _password
+        self._password = _password
 
     @hybrid_property
     def password(self):
