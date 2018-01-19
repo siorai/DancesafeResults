@@ -74,3 +74,27 @@ reagentsList = [
      "Specialty reagent for detecting presence of indole structures"
      ]
 ]
+
+materialList = {
+    "Geltab",
+    "Blotter",
+    "Pressie",
+    "Powder",
+    "Crystal",
+    "Microdot",
+    "Liquid - Small Volume",
+    "Liquid - Large Volume",
+    "Liquid - Beverage",
+    "Pill - RX",
+    "Fungus",
+    "Plantmatter",
+    "Dosed Food",
+    "E-Liquid",
+    "Herb - Laced"
+    "Capsule",
+    "Syringe",
+    "Dipped Media",
+    "Patch",
+    "Tar",
+}
+

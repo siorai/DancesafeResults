@@ -1,29 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-Chapter Name
-    Drop down list, compiled from users.Chapter
-    defaults to last selected
-Event Name
-    Drop down list, compiled from events.Name joined with events.Year
-    defaults to last selected
-    stored as event's UUID
-Shiftlead Name
-    Drop down list, compiled from users.Name
-    defaults to last selected
-    stored as user's UUID
-Tester Name
-    Drop down list, compiled from users.Name
-    defaults to last selected
-    stored as user's UUID
-Recorder Name
-    Drop down list, compiled from users.Name
-    defaults to last selected
-    stored as user's UUID
+    <head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css">
+        <link href="../static/css/bootstrap.css" rel="stylesheet">
+        <link href="../static/css/bootstrap-colorpicker.css" rel="stylesheet">
+
+		<!-- Website CSS style -->
+		<link rel="stylesheet" type="text/css" href="../static/css/newuser.css">
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="../static/css/tinycolorpicker.css" type="text/css" media="screen">
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="../static/js/jquery.tinycolorpicker.js"></script>
+        <script type="text/javascript">
+
+		    $(document).ready(function()
+            {
+			    var $box = $('#colorPicker');
+                $box.tinycolorpicker();
+		    });
+        </script>
+
+
+		<title>Dancesafe Results v0.5</title>
+	</head>
+    <body>
+		<div class="container">
+			<div class="row main">
+				<div class="panel-heading">
+	               <div class="panel-title text-center">
+	               		<h1 class="title">Dancesafe Results</h1>
+	               		<hr />
+	               	</div>
+	            </div>
+				<div class="main-login main-center">
+                    <form class="form-horizontal" method="post" action="#">
+
+                        <div class="form-group">
+                            <label for="Chapter Name" class="cols-sm-2 control-label">Chapter Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="chapter" id="chapter"/>
+                                        {% for eachChapter in masterDict["chapterList"]: %}
+                                            <option>{{ eachChapter }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="Event Name" class="cols-sm-2 control-label">Event Name</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="event" id="event"/>
+                                    {% for eachEvent in masterDict["eventList"]: %}
+                                        <option value="{{ masterDict["eventList"][eachEvent]["id"] }}">{{ eachEvent }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="cols-sm-2 control-label">Shiftlead</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="shiftLead" id="shiftLead"/>
+                                    {% for eachUser in masterDict["userList"]: %}
+                                        <option value="{{ masterDict["userList"][eachUser]["id"] }}">{{ eachUser }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="cols-sm-2 control-label">Tester</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="tester" id="tester"/>
+                                    {% for eachUser in masterDict["userList"]: %}
+                                        <option value="{{ masterDict["userList"][eachUser]["id"] }}">{{ eachUser }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="cols-sm-2 control-label">Recorder</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-globe fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="recorder" id="recorder"/>
+                                    {% for eachUser in masterDict["userList"]: %}
+                                        <option value="{{ masterDict["userList"][eachUser]["id"] }}">{{ eachUser }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="" class="cols-sm-2 control-label">Material Type(Physical)</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-question fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="recorder" id="recorder"/>
+                                    {% for eachType in masterDict["materialList"]: %}
+                                        <option value="{{ eachType }}">{{ eachType }}</option>
+                                    {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    {% for eachReagent in masterDict["testing"]: %}
+                        <div class="form-group">
+                            <label for="" class="cols-sm-2 control-label">{{ eachReagent }}</label>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <select class="form-control" name="recorder" id="recorder"/>
+                                            {% for eachType in masterDict["colorDict"].keys(): %}
+                                                <option value="{{ eachType }}">{{ eachType }}</option>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <div id="colorPicker">
+        <a class="color"><div class="colorInner"></div></a>
+        <div class="track" style="background-image: none;"><canvas width="150" height="150"></canvas></div>
+        <ul class="dropdown"></ul>
+        <input type="hidden" class="colorInput">
+    </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="input-group">
+                                            <select class="form-control" name="recorder" id="recorder"/>
+                                            {% for eachType in masterDict["colorDict"].keys(): %}
+                                                <div class="bg-inverse">
+                                                    <option style="background-color:{{ eachType }}" value="{{ eachType }}">{{ eachType }}</option>
+                                                </div>
+                                            {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    {%  endfor %}
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
 
 Substance Type
     Drop down list, compiled from substances.Name

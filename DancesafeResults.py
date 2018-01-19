@@ -2,6 +2,8 @@ import bcrypt
 from flask import Flask, flash, redirect, render_template, request, url_for
 from flask.ext.bcrypt import Bcrypt
 
+import webcolors
+
 from sqlalchemy import exists
 
 import json
@@ -9,7 +11,7 @@ import json
 from pprint import pprint
 
 from secrets import secret_key
-from DatabaseMasterList import substancesList, reagentsList
+from DatabaseMasterList import substancesList, reagentsList, materialList
 
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -115,8 +117,13 @@ def test_add():
 @app.route('/test', methods=['GET', 'POST'])
 def new_survey():
     if request.method == 'GET':
-        masterDict = dict(eventList={}, userList={}, chapterList=set())
-        for row in session.query(Events):
+        masterDict = dict(eventList={},
+                          userList={},
+                          chapterList=set(),
+                          testing={},
+                          materialList=[],
+                          colorDict=webcolors.CSS3_NAMES_TO_HEX)
+        for row in session.query(Events).order_by(Events.ts):
             masterDict["eventList"]["{} - {}".format(row.name, row.year)] = {"name": "{}".format(row.name),
                                                                            "year": "{}".format(row.year),
                                                                            "id": "{}".format(row.id)}
@@ -124,13 +131,26 @@ def new_survey():
             masterDict["userList"]["{}".format(row.fullname)] = {"fullname": "{}".format(row.fullname),
                                                                  "id": "{}".format(row.id)}
             masterDict["chapterList"].add(row.chapter)
+        for row in session.query(MaterialType).order_by(MaterialType.name):
+            masterDict["materialList"].append(row.name)
+
+        dbsubstancesList = session.query(Substances)
+        dbreactionList = session.query(Reactions)
+        dbreagentList = session.query(Reagents).order_by(Reagents.ts)
+        dbcolorList = session.query(Colors.id)
+
+        for reagents in dbreagentList:
+            masterDict['testing'].update({reagents.name: {
+                "ReagentUUID": reagents.id,
+                "ReactionDetails": []
+            }
+            })
+            for eachreaction in dbreactionList.filter(Reactions.reagentid==reagents.id):
+                masterDict['testing'][reagents.name]["ReactionDetails"].append([eachreaction.id, eachreaction.reactionint])
+
 
         pprint(masterDict)
-        return render_template('addsubstance.html')
-
-@app.route('/')
-def show_all():
-    return render_template('show_all.html')
+        return render_template('survey-v2.html', masterDict=masterDict)
 
 
 @app.route('/add_substance', methods=['GET', 'POST'])
@@ -207,8 +227,7 @@ def addcolorreactions():
             session.add(addreaction)
             session.commit()
 
-    #return render_template('addsubstance.html')
-
+    # TODO Make a proper page to verify data entry.
 
 
 @app.route('/AddReactionList', methods=['GET'])
@@ -239,6 +258,16 @@ def addmastersubstancelist():
     return render_template('substancesindb.html', dbsubstanceList=dbsubstanceList)
 
 
+@app.route('/AddMasterMaterialList', methods=['GET'])
+def addmastermateriallist():
+    if request.method == 'GET':
+        for eachType in materialList:
+            newType = MaterialType(name=eachType)
+            session.add(newType)
+        session.commit()
+        dbmateriallist = session.query(MaterialType.id, MaterialType.name).order_by(MaterialType.name)
+
+    return render_template('materialsindb.html', dbmateriallist=dbmateriallist)
 
 
 # @app.route('/add_question', methods=['GET', 'POST'])
