@@ -21,6 +21,37 @@ session = Session()
 # Tables
 
 
+class Chapters(Base):
+    __tablename__ = 'chapters'
+
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("gen_random_uuid()"))
+    name = Column(String, nullable=False, unique=True)
+    email = Column(String, nullable=True)
+    facebook = Column(String, nullable=True)
+    twitter = Column(String, nullable=True)
+    snapchat = Column(String, nullable=True)
+    website = Column(String, nullable=True)
+    primaryphone = Column(String, nullable=True)
+    presidentPrimaryContact = Column(UUID(as_uuid=True),
+                                    ForeignKey('users.id'),
+                                    nullable=True)
+    vicePresident = Column(UUID(as_uuid=True),
+                           ForeignKey('users.id'),
+                           nullable=True)
+    treasurer = Column(UUID(as_uuid=True),
+                       ForeignKey('users.id'),
+                       nullable=True)
+    secretary = Column(UUID(as_uuid=True),
+                       ForeignKey('users.id'),
+                       nullable=True)
+    author = Column(UUID(as_uuid=True),
+                    ForeignKey('users.id'),
+                    nullable=True)
+    ts = Column(DateTime(timezone=True), server_default=sqlalchemy.text("now()"))
+
+
 class Colors(Base):
     __tablename__ = 'colors'
 
@@ -37,15 +68,15 @@ class Events(Base):
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
-    name = Column(String(50), nullable=False)
+    name = Column(String, nullable=False)
     year = Column(Integer, nullable=False)
-    city = Column(String(50), nullable=False)
-    state = Column(String(2), nullable=False)
-    region = Column(String(25))
+    city = Column(String, nullable=False)
+    state = Column(String, nullable=False)
+    region = Column(String)
     author = Column(UUID(as_uuid=True),
                     ForeignKey('users.id'),
                     nullable=False)
-    ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
+    ts = Column(DateTime(timezone=True), server_default=sqlalchemy.text("now()"))
 
 
 class ExpectedReactions(Base):
@@ -110,7 +141,7 @@ class Reagents(Base):
     author = Column(UUID(as_uuid=True),
                     ForeignKey('users.id'),
                     nullable=False)
-    ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
+    ts = Column(DateTime(timezone=True), server_default=sqlalchemy.text("now()"))
     description = Column(Text)
 
 
@@ -132,7 +163,7 @@ class Sample(Base):
     recorder = Column(UUID(as_uuid=True),
                       ForeignKey('users.id'),
                       nullable=False)
-    ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
+    ts = Column(DateTime(timezone=True), server_default=sqlalchemy.text("now()"))
     typeid = Column(UUID(as_uuid=True),
                     ForeignKey('materialtype.id'),
                     nullable=False)
@@ -192,7 +223,7 @@ class Questions(Base):
     author = Column(UUID(as_uuid=True),
                     ForeignKey('users.id'),
                     nullable=False)
-    ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
+    ts = Column(DateTime(timezone=True), server_default=sqlalchemy.text("now()"))
 
 
 class Users(Base):
@@ -203,14 +234,16 @@ class Users(Base):
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
-    username = Column(String(42), unique=True, nullable=False)
-    fullname = Column(String(100), nullable=False)
-    email = Column(String(50), unique=True, nullable=False)
-    facebookurl = Column(String(50), unique=True, nullable=True)
-    instagram = Column(String(50), unique=True, nullable=True)
-    chapter = Column(String(50), nullable=True)
-    _password = Column(String(128), nullable=False)
-    ts = Column(DateTime, server_default=sqlalchemy.text("now()"))
+    username = Column(String, unique=True, nullable=False)
+    fullname = Column(String, nullable=False)
+    email = Column(String, unique=True, nullable=False)
+    facebookurl = Column(String, unique=True, nullable=True)
+    instagram = Column(String, unique=True, nullable=True)
+    chapter = Column(UUID(as_uuid=True),
+                     ForeignKey('chapters.id'),
+                     nullable=False)
+    _password = Column(String, nullable=False)
+    ts = Column(DateTime(timezone=True), server_default=sqlalchemy.text("now()"))
 
     def __init__(self, username=None, fullname=None, email=None, facebookurl=None, instagram=None,
                  chapter=None, _password=None):

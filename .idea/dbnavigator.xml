@@ -25,31 +25,13 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="e59937a6-275f-4218-8ec0-e364a4569ffd">
-        <schema name="public" object-types="column, function, sequence, table, view" />
+        <schema name="public" object-types="function, sequence, table, view" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="e59937a6-275f-4218-8ec0-e364a4569ffd">
-      <console name="Seedbox Database" type="STANDARD"><![CDATA[CREATE TABLE IF NOT EXISTS dnd_characterclassvariant (
-  id int(11) NOT NULL,
-  character_class_id int(11) NOT NULL,
-  rulebook_id int(11) NOT NULL,
-  page smallint(5)  DEFAULT NULL,
-  advancement text NOT NULL,
-  advancement_html text NOT NULL,
-  class_features text NOT NULL,
-  skill_points smallint(5)  DEFAULT NULL,
-  hit_die smallint(5)  DEFAULT NULL,
-  alignment varchar(256) NOT NULL,
-  class_features_html text NOT NULL,
-  requirements text NOT NULL,
-  requirements_html text NOT NULL,
-  required_bab smallint(5)  DEFAULT NULL,
-  starting_gold varchar(32) NOT NULL,
-  PRIMARY KEY (id),
-  UNIQUE (id)
-);]]></console>
+      <console name="Seedbox Database" type="STANDARD"><![CDATA[DROP SCHEMA public CASCADE;]]></console>
     </connection>
     <connection id="dc161934-d888-4860-adef-dc062bac4de2">
       <console name="Connection" type="STANDARD" />
