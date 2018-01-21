@@ -11,7 +11,8 @@ import json
 from pprint import pprint
 
 from secrets import secret_key
-from DatabaseMasterList import substancesList, reagentsList, materialList
+from DatabaseMasterList import substancesList, reagentsList, materialList, \
+    chapterList, userList, colorDict
 
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -20,7 +21,7 @@ bcrypt = Bcrypt(app)
 
 from alchemy import Colors, Events, ExpectedReactions, MaterialType, \
     ReagentColorList, Reactions, Reagents, Sample, Substances, Survey, \
-    TestResults, Questions, Users
+    TestResults, Questions, Users, Chapters
 
 from alchemy import session, Base, engine
 
@@ -256,6 +257,46 @@ def addmastersubstancelist():
         dbsubstanceList = session.query(Substances.id, Substances.name)
 
     return render_template('substancesindb.html', dbsubstanceList=dbsubstanceList)
+
+@app.route('/AddUserList', methods=['GET'])
+def adduserlist():
+    if request.method == 'GET':
+        for eachUser in userList:
+            chapterid = session.query(Chapters.id).filter(Chapters.name == userList[eachUser]['chapter']).scalar()
+            newUser = Users(username=userList[eachUser]['username'],
+                           fullname=userList[eachUser]['fullname'],
+                           email=userList[eachUser]['email'],
+                           facebookurl=userList[eachUser]['facebookurl'],
+                           instagram=userList[eachUser]['instagram'],
+                           chapter=chapterid,
+                           _password=userList[eachUser]['Password'])
+            session.add(newUser)
+        session.commit()
+    return render_template('usersindb.html', dbuserList=session.query(Users).all())
+
+
+@app.route('/AddChapterList', methods=['GET'])
+def addchapterlist():
+    if request.method == 'GET':
+        for eachChapter in chapterList:
+            newChapter = Chapters(name=eachChapter)
+            session.add(newChapter)
+        session.commit()
+        dbchapterList = session.query(Chapters.id, Chapters.name)
+
+    return render_template('chaptersindb.html', dbchapterList=dbchapterList)
+
+
+@app.route('/AddColorList', methods=['GET'])
+def addcolorlist():
+    if request.method == 'GET':
+        for eachColor in colorDict:
+            newChapter = Colors(name=eachColor, )
+            session.add(newChapter)
+        session.commit()
+        dbchapterList = session.query(Chapters.id, Chapters.name)
+
+    return render_template('chaptersindb.html', dbchapterList=dbchapterList)
 
 
 @app.route('/AddMasterMaterialList', methods=['GET'])

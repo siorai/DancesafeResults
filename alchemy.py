@@ -34,10 +34,10 @@ class Chapters(Base):
     snapchat = Column(String, nullable=True)
     website = Column(String, nullable=True)
     primaryphone = Column(String, nullable=True)
-    presidentPrimaryContact = Column(UUID(as_uuid=True),
+    president = Column(UUID(as_uuid=True),
                                     ForeignKey('users.id'),
                                     nullable=True)
-    vicePresident = Column(UUID(as_uuid=True),
+    vicepresident = Column(UUID(as_uuid=True),
                            ForeignKey('users.id'),
                            nullable=True)
     treasurer = Column(UUID(as_uuid=True),
@@ -59,7 +59,7 @@ class Colors(Base):
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
     name = Column(String, nullable=False, unique=True)
-    hex = Column(Integer, nullable=True)
+    hex = Column(String, nullable=True)
 
 
 class Events(Base):
