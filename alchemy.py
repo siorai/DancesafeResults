@@ -55,6 +55,8 @@ class Chapters(Base):
 class Colors(Base):
     __tablename__ = 'colors'
 
+    # TODO Redo colors table
+
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
                 server_default=sqlalchemy.text("gen_random_uuid()"))
