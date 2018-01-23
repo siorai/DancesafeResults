@@ -1,3 +1,7 @@
+"""
+Collection of Object Relational Models to be called on by rest of the app.
+Provides overall database schema.
+"""
 import sqlalchemy
 from sqlalchemy import create_engine, Boolean, Column, Integer, String, Text, \
     ForeignKey, DateTime
@@ -35,8 +39,8 @@ class Chapters(Base):
     website = Column(String, nullable=True)
     primaryphone = Column(String, nullable=True)
     president = Column(UUID(as_uuid=True),
-                                    ForeignKey('users.id'),
-                                    nullable=True)
+                       ForeignKey('users.id'),
+                       nullable=True)
     vicepresident = Column(UUID(as_uuid=True),
                            ForeignKey('users.id'),
                            nullable=True)

@@ -10,7 +10,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../Dancesafe\templates" />
+        <option value="$MODULE_DIR$/templates" />
       </list>
     </option>
   </component>

@@ -1,9 +1,13 @@
+"""
+Current resource for adding default values inside the database
+"""
+
 substancesList = [
     "MDMA",
     "MDE",
     "MDA",
     "5-APB",
-    "Methlyone",
+    "Methylone",
     "Ethylone",
     "Butylone",
     "Mephedrone",
@@ -27,7 +31,10 @@ substancesList = [
     "Mescaline",
     "Cocaine",
     "Aspirin",
-    "Sugar",
+    "Sugar"
+]
+
+indolesList = [
     "LSD",
     "5-MEO-MIPT",
     "5-MEO-DMT",
@@ -40,6 +47,7 @@ substancesList = [
     "4-ACO-DMT",
     "AMT"
 ]
+
 reagentsList = [
     ["Marquis",
      "Paul Waldorf",
