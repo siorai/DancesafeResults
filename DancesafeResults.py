@@ -122,6 +122,56 @@ def test_add():
 
 @app.route('/test', methods=['GET', 'POST'])
 def new_survey():
+    """
+    Currently under development testing handler for the main
+    survey portion of the application. Rapidly changes between 
+    multiple times between commits and will continue to until the 
+    first stable release. 
+
+    Design notes:
+
+    Currently there's console outputs to test the ability of the
+    creating and forming the masterDict, an OrderedDict type. 
+    As of Python 3.6, Dict types also preserve the order at which
+    their entered into the dict, but the specifc PEP relating to it
+    specifically mentions that it shouldn't be relied upon, so I'm not.
+    
+    As of this moment I'm still creating and modifying how I want to 
+    form the masterDict inside this URL handler.  
+
+    Since this handler makes several queries to the database, it 
+    feels somewhat expensive. Just because the database is hosted 
+    for the purpose of this project that doesn't mean I should ignore 
+    this vast ineffenciecy.  When I come to the point where I'm happy
+    with how the masterDict's data is pulled and formed, I'll be moving
+    to its own dedicated function. Then, eventually, it's own class
+    and entirely separate file.  
+
+    Overall this is to be considered a database inserter URL. While 
+    it does pull some information from the database, the info
+    that it requests won't change often enough to need the 
+    masterDict to be recreated everytime a new entry is made. 
+
+    As of right now it pulls info from the following tables:
+    
+    Users: 
+        name(String type): to display the name in a drop down
+        id(UUID type): to store the UUID for quick entry into the data
+            database
+
+    Chapters:
+        name(String type): to display the name in the drop down
+        id(UUID type): to make storing the UUID for easier.
+
+    Substances:
+        name(String type): to display the drop down for each of the 
+            substances and displays 
+        id: to make storing it easier. 
+
+    returns: At the moment? An error. Specifically an error relating 
+        to the lack of a return function due to flask getting upset
+        about the fact nothing is defined for the form post function. 
+    """
     if request.method == 'GET':
         masterDict = dict(eventList={},
                           userList={},
