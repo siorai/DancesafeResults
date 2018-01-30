@@ -4,7 +4,7 @@ Provides overall database schema.
 """
 import sqlalchemy
 from sqlalchemy import create_engine, Boolean, Column, Integer, String, Text, \
-    ForeignKey, DateTime
+    ForeignKey, DateTime, LargeBinary
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import sessionmaker
@@ -221,10 +221,40 @@ class TestResults(Base):
                            ForeignKey('colors.id'))
 
 
+class ImageComments(Base):
+    __tablename__ = 'imagecomments'
+
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("gen_random_uuid()"))
+    imageid = Column(UUID(as_uuid=True),
+                     ForeignKey('testimages.id'),
+                     nullable=False)
+    reagentid = Column(UUID(as_uuid=True),
+                       ForeignKey('reagent.id'),
+                       nullable=False)
+    details = Column(Text)
+
+
+class TestImages(Base):
+    __tablename__ = 'testimages'
+
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("gen_random_uuid()"))
+    sampleid = Column(UUID(as_uuid=True),
+                      ForeignKey('sample.id'),
+                      nullable=False)
+    imagefile = Column(LargeBinary)
+    description = Column(Text)
+
+
 class Questions(Base):
     __tablename__ = 'questions'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(UUID(as_uuid=True),
+                primary_key=True,
+                server_default=sqlalchemy.text("gen_random_uuid()"))
     detail = Column(Text)
     author = Column(UUID(as_uuid=True),
                     ForeignKey('users.id'),
