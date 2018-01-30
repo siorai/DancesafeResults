@@ -27,7 +27,7 @@
 	               	</div>
 	            </div>
 				<div class="main-login main-center">
-                    <form class="form-horizontal" method="post" action="#">
+                    <form class="form-horizontal" method="post" action="">
 
                         <div class="form-group">
                             <label for="Chapter Name" class="cols-sm-2 control-label">Chapter Name</label>
@@ -118,7 +118,7 @@
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-question fa" aria-hidden="true"></i></span>
-                                    <select class="form-control" name="suspctedSubstance" id="suspectedSubstance"/>
+                                    <select class="form-control" name="suspectedSubstance" id="suspectedSubstance"/>
                                     {% for eachType in masterDict["substancesDict"]: %}
                                         <option value="{{ eachType }}">{{ eachType }}</option>
                                     {% endfor %}
@@ -126,24 +126,31 @@
                                 </div>
                             </div>
                         </div>
+
                     {% for eachReagent in reagentDict: %}
+
+                         </script>
                         <div class="btn-group bootstrap-select">
                             <label for="" class="cols-sm-2 control-label">{{ eachReagent }}</label>
                             <div class="row">
                                 <select class="selectpicker" name="{{ eachReagent }}Result" id="{{ eachReagent }}Result"/>
                                 {% for eachType in reagentDict[eachReagent]: %}
                                     <option id="{{ eachReagent }}_{{ eachType }}"  data-thumbnail="../static/img/reagents/{{ eachReagent }}/{{ eachReagent }}_{{ eachType }}.png" value="{{ eachType }}">
-                                        <div background-image="../static/img/reagents/{{ eachReagent }}/{{ eachReagent }}_{{ eachType }}.png">
                                             {{ eachType }}
-                                        </div>
                                     </option>
                                 {% endfor %}
                                 </select>
                             </div>
                         </div>
-                    {%  endfor %}
 
+                        {%  endfor %}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">
+                                Test Add
+                            </button>
+                        </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
@@ -160,6 +167,19 @@ $(document).ready(function() {
     caretIcon: 'glyphicon glyphicon-menu-down'
   });
 });
+</script>
+
+<script>
+    $(document).ready(function() { 
+        {% for eachReagent in reagentDict: %}
+            document.getElementById("suspectedSubstance").addEventListener("change", setExpectation{{ eachReagent }});
+            function setExpectation{{ eachReagent }}() {
+                document.getElementById("suspectedSubstance").selected;
+                document.getElementById("{{ eachReagent }}_" + document.getElementById("suspectedSubstance").value).selected = true;            
+            };
+            $('.{{ eachReagent }}Result').selectpicker('render');
+        {% endfor %}
+        })
 </script>
 <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
