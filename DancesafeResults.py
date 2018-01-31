@@ -168,9 +168,8 @@ def new_survey():
             substances and displays 
         id: to make storing it easier. 
 
-    returns: At the moment? An error. Specifically an error relating 
-        to the lack of a return function due to flask getting upset
-        about the fact nothing is defined for the form post function. 
+    returns: basic html page that spits out all of the info that was submitted
+        back to the app
     """
     if request.method == 'GET':
         masterDict = dict(eventList={},
@@ -202,6 +201,21 @@ def new_survey():
         reagentDict = createImageDict()
         print(reagentDict)
         return render_template('survey-v2.html', masterDict=masterDict, reagentDict=reagentDict)
+    if request.method == 'POST':
+        dbsurveyList = {
+            "chapterid" : request.form['chapter'],
+            "eventid" : request.form['event'],
+            "shiftleadid" : request.form['shiftLead'],
+            "testerid" : request.form['tester'],
+            "recorder" : request.form['recorder'],
+            "substancetype" : request.form['materialType'],
+            "suspectedSubstance" : request.form['suspectedSubstance'],
+            "reactions" : {}
+        }
+        dbsubstancesList = session.query(Reagents)
+        for each in dbsubstancesList:
+            dbsurveyList["reactions"]["{}".format(each.name)] = request.form["{}Result".format(each.name)]
+        return render_template('tobeentered.html', dbsurveyList=dbsurveyList)
 
 
 @app.route('/add_substance', methods=['GET', 'POST'])
@@ -391,6 +405,16 @@ def addmastermateriallist():
         session.commit()
         dbmateriallist = session.query(MaterialType.id, MaterialType.name).order_by(MaterialType.name)
         return render_template('materialsindb.html', dbmateriallist=dbmateriallist)
+
+
+# @app.route('/TestingSubmissionResults', methods=['GET', 'POST'])
+# def testingSubmissionResults():
+#    """
+#
+#
+#    :return: page showing most recently added info
+#    """
+#    if request.method == 'GET':
 
 
 def createImageDict():
