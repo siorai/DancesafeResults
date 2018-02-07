@@ -114,10 +114,22 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="" class="cols-sm-2 control-label">Was this a ground score?</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-trophy fa" aria-hidden="true"></i></span>
+                                    <select class="form-control" name="groundScore" id="groundScore"/>
+                                        <option value="no"> No </option>
+                                        <option value="yes"> Yes </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="" class="cols-sm-2 control-label">Suspected to be</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-question fa" aria-hidden="true"></i></span>
+                                    <span class="input-group-addon"><i class="fa fa-flask fa" aria-hidden="true"></i></span>
                                     <select class="form-control" name="suspectedSubstance" id="suspectedSubstance"/>
                                     {% for eachType in masterDict["substancesDict"]: %}
                                         <option value="{{ eachType }}">{{ eachType }}</option>

@@ -1,8 +1,10 @@
 import bcrypt
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
 from flask.ext.bcrypt import Bcrypt
 from collections import OrderedDict
 import webcolors
+
+from flask_cors import CORS
 
 from sqlalchemy import exists
 
@@ -17,6 +19,7 @@ from DatabaseMasterList import substancesList, reagentsList, materialList, \
 from sqlalchemy.dialects.postgresql import UUID
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 bcrypt = Bcrypt(app)
 
 from alchemy import Colors, Events, ExpectedReactions, MaterialType, \
@@ -102,6 +105,19 @@ Base.metadata.create_all(engine)
 #         flash('Thank you for creating a user!')
 #         return redirect(url_for('add_user'))
 #     return render_template('adduser.html', form=form)
+
+@app.route('/', methods=['GET', 'POST'])
+def main_app():
+    if request.method == 'GET':
+        dbchapterList = session.query(Chapters.id, Chapters.name).all()
+        pprint(dbchapterList)
+        chapterDict = {}
+        for id, name in dbchapterList:
+            chapterDict[name] = id
+        pprint(chapterDict)
+        jsonifiedchapterDict = jsonify(chapterDict)
+        pprint(jsonifiedchapterDict)
+        return render_template('adduser_vuetifytest.html', jsonifiedchapterDict=jsonifiedchapterDict)
 
 @app.route('/test_add', methods=['GET', 'POST'])
 def test_add():
@@ -217,6 +233,37 @@ def new_survey():
             dbsurveyList["reactions"]["{}".format(each.name)] = request.form["{}Result".format(each.name)]
         return render_template('tobeentered.html', dbsurveyList=dbsurveyList)
 
+@app.route('/api/chapterlist')
+def fetch_chapter_list():
+    dbchapterList = session.query(Chapters.id, Chapters.name).all()
+    pprint(dbchapterList)
+    chapterDict = []
+    pprint(chapterDict)
+    masterDict = dict(eventList={},
+                      userList={},
+                      chapterList=[],
+                      testing={},
+                      materialList=[],
+                      reagentsDict={},
+                      substancesDict={})
+    for row in session.query(Events).order_by(Events.ts):
+        masterDict["eventList"]["{} - {}".format(row.name, row.year)] = {"name": "{}".format(row.name),
+                                                                         "year": "{}".format(row.year),
+                                                                         "id": "{}".format(row.id)}
+    for row in session.query(Users):
+        masterDict["userList"]["{}".format(row.fullname)] = {"fullname": "{}".format(row.fullname)}
+
+    for row in session.query(Chapters):
+        masterDict["chapterList"].append(
+            {
+                "name": "{}".format(row.name),
+                "id": "{}".format(row.id)
+            }
+        )
+
+    for row in session.query(MaterialType).order_by(MaterialType.name):
+        masterDict["materialList"].append(row.name)
+    return jsonify(masterDict)
 
 @app.route('/add_substance', methods=['GET', 'POST'])
 def add_substance():
