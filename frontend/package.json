@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fortawesome/vue-fontawesome": "0.0.22",
+    "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "font-awesome": "^4.7.0",

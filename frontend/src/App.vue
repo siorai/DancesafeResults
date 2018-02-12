@@ -44,6 +44,14 @@
               </router-link>
             </v-list-tile-content>
           </v-list-tile>
+          <v-list-tile>
+            <v-list-tile-action>
+              <v-icon>map</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+                <v-list-tile-title @click="fetchMasterDict">Test Import</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </v-list>
       </v-navigation-drawer>
       <v-toolbar app fixed clipped-left>
@@ -69,6 +77,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'App',
   component: 'add-user',
@@ -81,6 +90,21 @@ export default {
     ],
     drawer: null
   }),
+  methods: {
+    fetchMasterDict () {
+      const path = `http://localhost:9090/fetch_master_dict`
+      axios.get(path)
+        .then(response => {
+          this.masterDict = response.data
+        })
+        .then(
+          console.log(this.masterDict)
+        )
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  },
   props: {
     source: String
   }

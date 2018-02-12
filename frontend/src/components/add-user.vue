@@ -86,6 +86,21 @@
                     />
                   </v-flex>
                 </v-layout>
+                <v-layout row>
+                  <v-flex xs4>
+                    <v-subheader class="grey--text text--lighten-1">Chapter</v-subheader>
+                  </v-flex>
+                  <v-flex xs8>
+                    <v-select
+                      v-bind:items="masterJSON.chapterList"
+                      label="Select Chapter"
+                      single-line
+                      item-text="name"
+                      item-value="name"
+                      bottom
+                    ></v-select>
+                  </v-flex>
+                </v-layout>
               </v-container>
             </v-card-text>
             <v-btn @click="submit">submit</v-btn>
@@ -97,19 +112,37 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'add-user',
   data: () => ({
     e1: false,
-    password: 'Password'
+    password: 'Password',
+    masterJSON: null
   }),
   methods: {
     submit () {
       this.$validator.validateAll()
+    },
+    fetchMasterDict () {
+      const path = `http://localhost:9090/fetch_master_dict`
+      axios.get(path)
+        .then(response => {
+          this.masterJSON = response.data
+        })
+        .then(
+          console.log(this.masterDict)
+        )
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
   props: {
     source: String
+  },
+  created: function () {
+    this.masterJSON = this.fetchMasterDict()
   }
 }
 </script>

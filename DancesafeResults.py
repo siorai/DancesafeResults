@@ -1,8 +1,12 @@
 import bcrypt
-from flask import Flask, flash, redirect, render_template, request, url_for
+from flask import Flask, flash, redirect, render_template, request, url_for, \
+        jsonify
 from flask.ext.bcrypt import Bcrypt
 from collections import OrderedDict
 import webcolors
+from flask_cors import CORS
+
+
 
 from sqlalchemy import exists
 
@@ -14,9 +18,12 @@ from secrets import secret_key
 from DatabaseMasterList import substancesList, reagentsList, materialList, \
     chapterList, userList, colorDict
 
+import sqlalchemy
+from sqlalchemy.orm import class_mapper
 from sqlalchemy.dialects.postgresql import UUID
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 bcrypt = Bcrypt(app)
 
 from alchemy import Colors, Events, ExpectedReactions, MaterialType, \
@@ -103,21 +110,51 @@ Base.metadata.create_all(engine)
 #         return redirect(url_for('add_user'))
 #     return render_template('adduser.html', form=form)
 
-@app.route('/test_add', methods=['GET', 'POST'])
-def test_add():
-    if request.method == 'POST':
-        users = Users(request.form['username'],
-                      request.form['fullname'],
+@app.route('/vue_chapter_list', methods=['GET'])
+def vue_chapter_list():
     if request.method == 'GET':
-        dbchapterList = session.query(Chapters.id, Chapters.name).all()
-        pprint(dbchapterList)
-        chapterDict = {}
-        for id, name in dbchapterList:
-            chapterDict[name] = id
-        pprint(chapterDict)
-        jsonifiedchapterDict = jsonify(chapterDict)
-        pprint(jsonifiedchapterDict)
-        return render_template('adduser_vuetifytest.html', jsonifiedchapterDict=jsonifiedchapterDict)
+        session.query(Chapters).all()
+        vueChapterList = session.query(Chapters).first()
+        vueChapterDict = {}
+        for eachChapter in vueChapterList:
+            vueChapterDict.append(eachChapter)
+        pprint(vueChapterDict)
+        return jsonify(vueChapterDict)
+
+
+@app.route('/fetch_master_dict', methods=['GET'])
+def fetch_master_dict():
+    if request.method == 'GET':
+        masterDict = {
+                'chapterList': []
+                }
+        for each_chapter in session.query(Chapters).all():
+            masterDict['chapterList'].append({
+                'id': each_chapter.id,
+                'name': each_chapter.name,
+                'facebook': each_chapter.facebook,
+                'twitter': each_chapter.twitter,
+                'snapchat': each_chapter.snapchat,
+                'website': each_chapter.website,
+                'primaryphone': each_chapter.primaryphone,
+                'president': each_chapter.president,
+                'vicepresident': each_chapter.vicepresident,
+                'treasurer': each_chapter.treasurer,
+                'secretary': each_chapter.secretary,
+                'author': each_chapter.author,
+                'ts': each_chapter.ts
+                })
+#            masterDict['chapterList'][each_chapter] = {}
+#            for each_column in attribute_names(Chapters):
+#                masterDict['chapterList'][each_chapter].update({
+#                        each_column: "None"})
+#               
+        pprint(attribute_names(Chapters))
+        return jsonify(masterDict)
+
+def attribute_names(cls):
+    return [prop.key for prop in class_mapper(cls).iterate_properties
+        if isinstance(prop, sqlalchemy.orm.ColumnProperty)]
 
 @app.route('/test_add', methods=['GET', 'POST'])
 def test_add():
@@ -189,6 +226,10 @@ def new_survey():
     """
     if request.method == 'GET':
         masterDict = dict(eventList={},
+                          userList={},
+                          chapterList={},
+                          testing={})
+
         for row in session.query(MaterialType).order_by(MaterialType.name):
             masterDict["materialList"].append(row.name)
 
@@ -217,64 +258,7 @@ def add_substance():
     return render_template('addsubstance.html')
 
 
-@app.route('/AddReagentList', methods=['GET', 'POST'])
-def addreagentlist():
-    if request.method == 'GET':
-        for eachReagent in reagentsList:
-            authorUUID = session.query(Users.id).filter(Users.fullname == eachReagent[1]).one()
-            newReagent = Reagents(name=eachReagent[0], author=authorUUID, description=eachReagent[2])
-            session.add(newReagent)
-        session.commit()
-        dbreagentList = session.query(
-            Reagents.id,
-            Reagents.name,
-            Reagents.author,
-            Reagents.ts,
-            Reagents.description)
-        for row in session.query(Users).filter(Users.id == authorUUID).all():
-            authorName = row.fullname
-        return render_template('reagentsindb.html', dbreagentList=dbreagentList, authorName=authorName)
 
-
-@app.route('/AddColorReactions', methods=['GET', 'POST'])
-def addcolorreactions():
-    dbsubstancesList = session.query(Substances)
-    dbreactionList = session.query(Reactions)
-    dbreagentList = session.query(Reagents).order_by(Reagents.ts)
-    dbcolorList = session.query(Colors.id)
-    print(type(dbcolorList))
-    if request.method == 'GET':
-        dbDict = dict()
-        for reagents in dbreagentList:
-            dbDict.update({reagents.name: {
-                "ReagentUUID": reagents.id,
-                "ReactionDetails": []
-            }
-            })
-            for eachreaction in dbreactionList.filter(Reactions.reagentid == reagents.id):
-                dbDict[reagents.name]["ReactionDetails"].append([eachreaction.id, eachreaction.reactionint])
-        print("*****START*****")
-        pprint(dbDict)
-        print("*****END*****")
-        return render_template('addcolorreactions.html',
-                               dbsubstancesList=dbsubstancesList,
-                               dbreactionList=dbreactionList,
-                               dbDict=dbDict)
-    for eachReaction in dbreactionList:
-        colorname = request.form['ReactionID - {}'.format(eachReaction.id)]
-        if colorname == "No Reaction":
-            pass
-        else:
-            if session.query(Colors.name).filter(Colors.name == colorname).scalar() is None:
-                addcolor = Colors(name=colorname)
-                session.add(addcolor)
-                print("You added {}!".format(colorname))
-                session.commit()
-            else:
-                print("Already have it!")
-            colorid = session.query(Colors.id).filter(Colors.name == colorname).scalar()
-            substanceid = session.query(Substances.id). \
-                filter(Substances.name == request.form['substanceName']). \
 
 @app.route('/AddReagentList', methods=['GET', 'POST'])
 def addreagentlist():
@@ -294,6 +278,21 @@ def addreagentlist():
             authorName = row.fullname
         return render_template('reagentsindb.html', dbreagentList=dbreagentList, authorName=authorName)
 
+@app.route('/AddChapterList', methods=['GET'])
+def addchapterlist():
+    """
+    Adds the chapterList from the DatabaseMasterList into the DB.
+    *To be used during initial database creation.
+    :return: page showing current chapters in the database.
+    """
+    if request.method == 'GET':
+        for eachChapter in chapterList:
+            newChapter = Chapters(name=eachChapter)
+            session.add(newChapter)
+        session.commit()
+        dbchapterList = session.query(Chapters.id, Chapters.name)
+
+        return render_template('chaptersindb.html', dbchapterList=dbchapterList)
 
 @app.route('/AddColorReactions', methods=['GET', 'POST'])
 def addcolorreactions():

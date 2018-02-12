@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
+import axios from 'axios'
 import('vuetify/dist/vuetify.min.css')
 import('./assets/css/materiel.fonts.css')
 import('./assets/css/fonts/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2')
@@ -45,6 +46,7 @@ import('./assets/css/fonts/fontawesome-webfont.svg')
 
 Vue.use(router)
 Vue.use(Vuetify)
+Vue.use(axios)
 
 /* eslint-disable no-new */
 new Vue({
