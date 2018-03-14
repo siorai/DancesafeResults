@@ -2,7 +2,8 @@ import bcrypt
 from flask import Flask, flash, redirect, render_template, request, url_for, \
         jsonify
 from flask.ext.bcrypt import Bcrypt
-from collections import OrderedDict
+from collections import OrderedDict, Counter
+from itertools import chain
 import webcolors
 from flask_cors import CORS
 
@@ -14,13 +15,14 @@ import json
 
 from pprint import pprint
 
-from secrets import secret_key
+from secrets import secret_key, pgConnection, DBConn 
 from DatabaseMasterList import substancesList, reagentsList, materialList, \
     chapterList, userList, colorDict
 
 import sqlalchemy
 from sqlalchemy.orm import class_mapper
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.sql import text, select
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"*": {"origins": "*"}})
@@ -28,87 +30,16 @@ bcrypt = Bcrypt(app)
 
 from alchemy import Colors, Events, ExpectedReactions, MaterialType, \
     ReagentColorList, Reactions, Reagents, Sample, Substances, Survey, \
-    TestResults, Questions, Users, Chapters
+    TestResults, Questions, Users, Chapters, ApplicationEndPoints, \
+    ApplicationOrders, ApplicationLocationList
 
 from alchemy import session, Base, engine
 
 from pprint import pprint
 
+from SQL import demoChart2
+
 Base.metadata.create_all(engine)
-
-
-# def fetchList(listName=None):
-#     """
-#     Function fetch a list according to listName parameter in order to populate
-#     drop down menu in the main survey
-#
-#     :param listName: name of parameter to be pulled from tables
-#         ie event, user, chapter, question
-#     :return: list of entries pulled from tables
-#     """
-#
-#     if listName == 'event':
-#         eventlist = []
-#         for eachEvent in session.query(EventInfo.name, EventInfo.year).all():
-#             eventlist.append(eachEvent.name)
-#         print(eventlist)
-#         return eventlist
-#     if listName == 'user':
-#         userlist = []
-#         for eachUser in session.query(User.fullname).all():
-#             userlist.append(eachUser.fullname)
-#         print(userlist)
-#         return userlist
-#     if listName == 'chapter':
-#         chapterlist = []
-#         for eachChapter in session.query(User.chapter).all():
-#             chapterlist.append(eachChapter.chapter)
-#         print(chapterlist)
-#         return chapterlist
-#     if listName == 'question':
-#         questionlist = []
-#         for eachQuestion in session.query(Questions.detail).all():
-#             questionlist.append(eachQuestion)
-#         print(questionlist)
-#         return questionlist
-#     if listName == 'reagent':
-#         reagentlist = []
-#         for eachReagent in session.query(Reagent.name).all():
-#             reagentlist.append(eachReagent.name)
-#         print(reagentlist)
-#         return reagentlist
-#
-#
-# @app.route('/add_event', methods=['GET', 'POST'])
-# def add_event():
-#     form = EventForm(request.form)
-#     if request.method == 'POST':
-#         event = EventInfo(form.name.data,
-#                           form.year.data,
-#                           form.city.data,
-#                           form.state.data,
-#                           form.region.data)
-#         session.add(event)
-#         session.commit()
-#         for row in session.query(EventInfo):
-#             print(row)
-#         return redirect(url_for('add_event'))
-#     return render_template('addevent.html', form=form)
-#
-
-# @app.route('/add_user', methods=['GET', 'POST'])
-# def add_user():
-#     form = NewUser(request.form)
-#     if request.method == 'POST' and form.validate():
-#         user = User(form.username.data, form.name.data, form.email.data,
-#                     form.chapter.data)
-#         session.add(user)
-#         session.commit()
-#         for row in session.query(User):
-#             print(row)
-#         flash('Thank you for creating a user!')
-#         return redirect(url_for('add_user'))
-#     return render_template('adduser.html', form=form)
 
 @app.route('/vue_chapter_list', methods=['GET'])
 def vue_chapter_list():
@@ -121,13 +52,188 @@ def vue_chapter_list():
         pprint(vueChapterDict)
         return jsonify(vueChapterDict)
 
+# def remove_sa_instance_state(dictionary: dict) -> dict:
+#
+#    newdict = ({each_key:dictionary[each_key] \
+#               for each_key in dictionary \
+#               if each_key !='_sa_instance_state'})
+#    return newdict
+
+@app.route('/api/add_sample', methods=['POST'])
+def api_add_sample():
+    if request.method == 'POST':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        print (request.is_json)
+        content = request.get_json()
+        print (content)
+        eventid = content['eventid']
+        shiftLead = content['shiftLead']
+        tester = content['tester']
+        recorder = content['recorder']
+        typeid = content['typeid']
+        initialSuspect = content['initialSuspect']
+        description = content['description']
+        groundscore = content['groundscore']
+        conclusiveResult = content['conclusiveResult']
+        finalConclusion = content['finalConclusion']
+        acquiredOnSite = content['acquiredOnSite']
+        planToIngest = content['planToIngest']
+        currentSession.execute("INSERT INTO SAMPLE (eventid, shiftlead, tester, recorder, typeid, initialsuspect, description, groundscore, conclusiveresult, finalconclusion, acquiredonsite, plantoingest) VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(eventid, shiftLead, tester, recorder, typeid, initialSuspect, description, groundscore, conclusiveResult, finalConclusion, acquiredOnSite, planToIngest))
+        newConnection.commit()
+        currentSession.close()
+        newConnection.close()
+        return 'JSON posted'
+
+
+
+@app.route('/api/new_event', methods=['POST'])
+def api_new_event():
+    if request.method == 'POST':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        print (request.is_json)
+        content = request.get_json()
+        print (content)
+        eventName = content['name']
+        eventYear = content['year']
+        eventCity = content['city']
+        eventState = content['state']
+        eventRegion = content['region']
+        eventAuthor = content['author']
+        currentSession.execute("INSERT INTO EVENT (name, year, city, state, region, author) VALUES ('{}', {}, '{}', '{}', '{}', '{}')".format(eventName, eventYear, eventCity, eventState, eventRegion, eventAuthor))
+        newConnection.commit()
+        currentSession.close()
+        newConnection.close()
+        return 'JSON posted'
+
+@app.route('/api/demo_chart', methods=['GET'])
+def api_demo_chart():
+    if request.method =='GET':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        currentSession.execute(demoChart2)
+        jsonifyMe = []
+        for each_entry in currentSession.fetchall():
+            jsonifyMe.append(
+                each_entry[0]
+                )
+        piechart = Counter(jsonifyMe)
+        print(type(dict(piechart)))
+        chartFormat = []
+        for key, value in dict(piechart).items():
+           chartFormat.append({"label": key, "value": value})
+        currentSession.close()
+        newConnection.close()
+        return jsonify(chartFormat)
+
+
+
+@app.route('/api/fetch_substances', methods=['GET'])
+def api_fetch_substances():
+    if request.method =='GET':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        currentSession.execute(r"""SELECT s.id, s.name FROM SUBSTANCES as s""")
+        jsonifyMe = []
+        for each_user in currentSession.fetchall():
+            jsonifyMe.append({
+                "id": each_user[0],
+                "name": each_user[1]
+                })
+        currentSession.close()
+        pgConnection.close()
+        return jsonify(jsonifyMe)
+
+
+@app.route('/api/fetch_events', methods=['GET'])
+def api_fetch_events():
+    if request.method =='GET':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        currentSession.execute(r"""SELECT EVENT.id, EVENT.name, EVENT.year FROM EVENT""")
+        jsonifyMe = []
+        for each_user in currentSession.fetchall():
+            jsonifyMe.append({
+                "id": each_user[0],
+                "name": ("{} - {}".format(each_user[1], each_user[2]))
+                })
+        currentSession.close()
+        pgConnection.close()
+        return jsonify(jsonifyMe)
+
+@app.route('/api/fetch_types', methods=['GET'])
+def api_fetch_types():
+    if request.method =='GET':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        currentSession.execute(r"""SELECT mt.id, mt.name FROM MATERIALTYPE as mt ORDER BY mt.name""")
+        jsonifyMe = []
+        for each_user in currentSession.fetchall():
+            jsonifyMe.append({
+                "id": each_user[0],
+                "name": each_user[1]
+                })
+        currentSession.close()
+        pgConnection.close()
+        return jsonify(jsonifyMe)
+
+@app.route('/api/fetch_users', methods=['GET'])
+def api_fetch_users():
+    if request.method =='GET':
+        newConnection = DBConn()
+        currentSession = newConnection.cursor()
+        currentSession.execute(r"""SELECT USERS.id, USERS.fullname FROM USERS""")
+        jsonifyMe = []
+        for each_user in currentSession.fetchall():
+            jsonifyMe.append({
+                "id": each_user[0],
+                "name": each_user[1]
+                })
+        currentSession.close()
+        pgConnection.close()
+        return jsonify(jsonifyMe)
+
+@app.route('/sql_python_test', methods=['GET'])
+def sql_python_test():
+    pass            
 
 @app.route('/fetch_master_dict', methods=['GET'])
 def fetch_master_dict():
     if request.method == 'GET':
         masterDict = {
-                'chapterList': []
-                }
+                'chapterList': [],
+                'endPoints': [],
+                'users': [],
+                'events': [],
+                'menus': {
+                    'sidebar': [],
+                    'options': [],
+                    'footer': []
+                    }
+        }
+        AppOrdersList = attribute_names(ApplicationOrders)
+        for each_row in session.query(ApplicationOrders.__table__, ApplicationEndPoints.__table__, ApplicationLocationList.__table__).join(ApplicationEndPoints).join(ApplicationLocationList).filter(ApplicationLocationList.name=='options').order_by(ApplicationOrders.order_int).all():
+                masterDict['menus']['options'].append({
+                    'name': each_row.name,
+                    'title': each_row.title,
+                    'endpointURL': each_row.endpointURL,
+                    'description': each_row.description,
+                    'access': each_row.access,
+                    'location': each_row.location,
+                    'endpoint': each_row.endpoint,
+                    'order_int': each_row.order_int,
+                })
+                masterDict['menus']['sidebar'].append(each_row)
+                print(each_row)
+#        for row in session.query(ApplicationOrders):
+#            print(row.__dict__)
+            # masterDict['menus']['options'].append({
+#            print(each_option)
+#            for each_column in AppOrdersList:
+#                masterDict['menus']['options'].append({
+#                    str(each_column): str(each_option.each_column)
+#                    })
         for each_chapter in session.query(Chapters).all():
             masterDict['chapterList'].append({
                 'id': each_chapter.id,
@@ -144,12 +250,39 @@ def fetch_master_dict():
                 'author': each_chapter.author,
                 'ts': each_chapter.ts
                 })
+        for each_endpoint in (session
+                .query(ApplicationEndPoints)
+                .order_by(ApplicationEndPoints.orderint)
+                .all()):
+            masterDict['endPoints'].append({
+                'name': each_endpoint.name,
+                'title': each_endpoint.title,
+                'endpointURL': each_endpoint.endpointURL,
+                'description': each_endpoint.description,
+                'access': each_endpoint.access,
+                'location': each_endpoint.location,
+                'component':
+                    {'name': each_endpoint.endpointURL}
+                })
+        userattributes = attribute_names(Users)
+        for each_user in session.query(Users).all():
+            masterDict['users'].append({
+                'name': each_user.fullname,
+                'id': each_user.id
+            })
+        for each_event in session.query(Events).all():
+            masterDict['events'].append({
+                'name': '{} - {}'.format(each_event.name, each_event.year),
+                'id': each_event.id})
 #            masterDict['chapterList'][each_chapter] = {}
 #            for each_column in attribute_names(Chapters):
 #                masterDict['chapterList'][each_chapter].update({
 #                        each_column: "None"})
 #               
-        pprint(attribute_names(Chapters))
+        pprint(masterDict)
+        pprint(attribute_names(Users))
+        for each_attribute in attribute_names(Users):
+            print("{} is of type: {}".format(each_attribute, type(each_attribute)))
         return jsonify(masterDict)
 
 def attribute_names(cls):
@@ -412,4 +545,5 @@ def createImageDict():
 app.secret_key = secret_key
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5005, ssl_context='adhoc')
+    app.run(host='192.168.4.1', ssl_context=('../.ssh/fullchain.pem', 
+                                             '../.ssh/privkey.pem'))

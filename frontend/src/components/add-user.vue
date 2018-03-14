@@ -7,24 +7,18 @@
             <v-card-text>
               <v-container fluid>
                 <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader class="grey--text text--lighten-1">Please enter a user name</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
+                  <v-flex>
                     <v-text-field
+                      label="Pick a username"
                       name="username"
                       required
-                      single-line
                       dark
                       autocomplete
                     />
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader class="grey--text text--lighten-1">Select a password</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
+                  <v-flex>
                     <v-text-field
                       prepend-icon="fa-key fa-lg"
                       name="_password"
@@ -41,11 +35,9 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader class="grey--text text--lighten-1">Your email address</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
+                  <v-flex>
                     <v-text-field
+                      label="Email"
                       prepend-icon="email"
                       name="email"
                       required
@@ -56,15 +48,10 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader class="grey--text text--lighten-1">Facebook</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
-
+                  <v-flex>
                     <v-text-field
                       prepend-icon="fa-facebook-official fa-lg"
                       name="facebook"
-                      required
                       single-line
                       dark
                       autocomplete
@@ -72,14 +59,10 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader class="grey--text text--lighten-1">Instagram</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
+                  <v-flex>
                     <v-text-field
                       prepend-icon="fa-instagram fa-lg"
                       name="instagram"
-                      required
                       single-line
                       dark
                       autocomplete
@@ -87,10 +70,7 @@
                   </v-flex>
                 </v-layout>
                 <v-layout row>
-                  <v-flex xs4>
-                    <v-subheader class="grey--text text--lighten-1">Chapter</v-subheader>
-                  </v-flex>
-                  <v-flex xs8>
+                  <v-flex>
                     <v-select
                       v-bind:items="masterJSON.chapterList"
                       label="Select Chapter"
@@ -125,14 +105,11 @@ export default {
       this.$validator.validateAll()
     },
     fetchMasterDict () {
-      const path = `http://localhost:9090/fetch_master_dict`
+      const path = `http://192.168.4.1:9090/fetch_master_dict`
       axios.get(path)
         .then(response => {
           this.masterJSON = response.data
         })
-        .then(
-          console.log(this.masterDict)
-        )
         .catch(error => {
           console.log(error)
         })

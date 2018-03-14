@@ -13,7 +13,9 @@
               <v-icon>dashboard</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>Start New Survey</v-list-tile-title>
+              <router-link :to="{name: 'Newsurvey'}">
+                <v-list-tile-title>Start New Survey</v-list-tile-title>
+              </router-link>
             </v-list-tile-content>
           </v-list-tile>
           <v-list-tile>
@@ -63,10 +65,12 @@
             <v-icon>more_vert</v-icon>
           </v-btn>
           <v-list>
-            <v-list-tile v-for="option in options" :key="option.title">
-              <v-list-tile-title>{{ option.title }}</v-list-tile-title>
+            <v-list-tile v-for="option in masterJSON.endPoints" :key="option.title" :to="{name: option.endpointURL}">
+              <v-list-tile-content>
+                  <v-list-tile-title>{{ option.title }}</v-list-tile-title>
+              </v-list-tile-content>
             </v-list-tile>
-            </v-list>
+          </v-list>
         </v-menu>
       </v-toolbar>
       <div class="col-sm-9">
@@ -86,19 +90,20 @@ export default {
       { title: 'Login' },
       { title: 'Logout' },
       { title: 'New User' },
-      { title: 'User Settings' }
+      { title: 'User Settingsfdsaf' }
     ],
-    drawer: null
+    drawer: null,
+    masterJSON: null
   }),
   methods: {
     fetchMasterDict () {
-      const path = `http://localhost:9090/fetch_master_dict`
+      const path = `http://192.168.4.1:9090/fetch_master_dict`
       axios.get(path)
         .then(response => {
-          this.masterDict = response.data
+          this.masterJSON = response.data
         })
         .then(
-          console.log(this.masterDict)
+          console.log(this.masterJSON)
         )
         .catch(error => {
           console.log(error)
@@ -107,6 +112,9 @@ export default {
   },
   props: {
     source: String
+  },
+  created: function () {
+    this.masterJSON = this.fetchMasterDict()
   }
 }
 </script>
@@ -117,7 +125,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background: linear-gradient(to bottom, grey, light-yellow);
   margin-top: 60px;
 }
 </style>

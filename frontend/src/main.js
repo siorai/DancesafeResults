@@ -48,7 +48,6 @@ Vue.use(router)
 Vue.use(Vuetify)
 Vue.use(axios)
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,

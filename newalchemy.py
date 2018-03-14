@@ -48,17 +48,12 @@ class ApplicationOrders(Base):
                        ForeignKey('users.id'),
                        nullable=True)
     location = Column(UUID(as_uuid=True),
-                      ForeignKey('applicationlocationlist.id'),
-                      nullable=False)
-    order_int = Column(Integer, 
-                       nullable=False,
-                       unique=True)
-    endpoint = Column(UUID(as_uuid=True),
-                      ForeignKey('applicationendpoints.id'),
-                      nullable=False)
+                      ForeignKey('users.id'),
+                      nullable=True)
+    order_int = Column(Integer)
     
 class ApplicationLocationList(Base):
-    __tablename__ = 'applicationlocationlist'
+    __tablename__ = 'ApplicationLocationList'
     
     id = Column(UUID(as_uuid=True),
                 primary_key=True,
@@ -119,7 +114,7 @@ class Events(Base):
     year = Column(Integer, nullable=False)
     city = Column(String, nullable=False)
     state = Column(String, nullable=False)
-    region = Column(String, nullable=True)
+    region = Column(String)
     author = Column(UUID(as_uuid=True),
                     ForeignKey('users.id'),
                     nullable=False)
