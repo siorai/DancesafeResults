@@ -97,6 +97,11 @@ export default {
   name: 'add-user',
   data: () => ({
     e1: false,
+    username: '',
+    email: '',
+    facebook: '',
+    instagram: '',
+    chapter: '',
     password: 'Password',
     masterJSON: null
   }),
