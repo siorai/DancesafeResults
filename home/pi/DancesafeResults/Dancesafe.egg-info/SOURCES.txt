@@ -1,5 +1,0 @@
-Dancesafe.egg-info/PKG-INFO
-Dancesafe.egg-info/SOURCES.txt
-Dancesafe.egg-info/dependency_links.txt
-Dancesafe.egg-info/requires.txt
-Dancesafe.egg-info/top_level.txt

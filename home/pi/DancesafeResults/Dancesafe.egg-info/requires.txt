@@ -1,7 +1,0 @@
-flask
-flask-bcrypt
-flask-bootstrap
-psycopg2
-sqlalchemy==1.1.14
-webcolors
-wtforms
