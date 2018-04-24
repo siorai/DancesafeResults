@@ -11,7 +11,7 @@ The end result should be an image that'll be easily burnable to a 16GB MicroSD c
 
 ## Requirements
 
-Right now the python requirements should be listed in the setup.py, but outside of that you'll need access to a postgresql server running wherever. Currently I have mine running locally. 
+Right now the python requirements should be listed in the setup.py, but outside of that you'll need access to a postgresql server running wherever. Currently I have mine running locally. Front requirements are should listed in the package.json inside of the frontend subdir.  
 
 ## TODO
 - [ ] Finish up authorization complete with login/logout and isolate password storage in database
