@@ -1,0 +1,579 @@
+{
+  "chapterList": [
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "dddbfd55-1fa2-4dae-b5be-9f9e447101c4", 
+      "name": "Advisory Council", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "ff233754-e4d7-42cc-927b-cee8b469afb8", 
+      "name": "Alabama", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "f39815dd-77de-41b5-b227-e9b9d03b7174", 
+      "name": "Arizona", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "dadd7c72-dc98-4be4-bb8b-4dc08d60c61b", 
+      "name": "Atlanta", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "05bc8bf7-4a40-495d-814b-935cf082538f", 
+      "name": "Bay Area", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "781a2c5f-457c-4713-b380-6f4ebdb6eabe", 
+      "name": "Board of Directors", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "1139a85c-b66e-49c3-9889-ad48d05958ff", 
+      "name": "Calgary", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "a2bce63f-86c8-46cf-8dc6-407368847426", 
+      "name": "Central California", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "2744a52f-3a4e-42fe-92a4-ef01e2107fb6", 
+      "name": "Chicago", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "0a554eca-890f-447e-aa60-594cb6a9100a", 
+      "name": "Denver", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "7e9fc6ed-dd0d-42ae-8ae9-4b7b8ed28f6d", 
+      "name": "Detroit", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "d898ade8-83b6-41c8-84e6-0725197e04f1", 
+      "name": "Florida", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "42d753b2-893e-4ca0-aa3e-14bc7dc13dd2", 
+      "name": "Los Angeles", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "a460d409-8ac6-4e1c-bb42-9eabfe958758", 
+      "name": "Midwest", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "c667709e-3f93-41ee-bb74-c810b29b7943", 
+      "name": "National Office", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "dc90e47b-8f66-48b9-bdbe-8dcaf31c714c", 
+      "name": "New England", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "3b2143a1-b677-47aa-8223-c96962db7cc7", 
+      "name": "North Carolina", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "e2173108-38ad-4340-818c-2dd4053d7b46", 
+      "name": "PDX", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "db06f19c-3260-4fe4-b1fd-6c46fc7bb80d", 
+      "name": "Pennsylvania", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "29a14516-0cc9-4e41-ad24-a9c780e4bac9", 
+      "name": "Stay Safe Seattle", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "49a662d4-cab8-41c5-a797-8551d7257874", 
+      "name": "Utah", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "175e905d-a49d-40d6-9f6b-cd7658409ad3", 
+      "name": "Virginia", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "af2150d2-9a02-40fb-a780-c916d22cda11", 
+      "name": "Washington, DC", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "beb47190-fcb5-45e5-8631-f04796bedabb", 
+      "name": "Western New York", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "e2ea8ade-66c6-4883-b456-e5d79cf7ae61", 
+      "name": "New Jersey", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Tue, 06 Feb 2018 00:05:01 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }, 
+    {
+      "author": null, 
+      "facebook": null, 
+      "id": "fbc5b159-7748-4b3f-95d6-4af5e13f69fa", 
+      "name": "New York", 
+      "president": null, 
+      "primaryphone": null, 
+      "secretary": null, 
+      "snapchat": null, 
+      "treasurer": null, 
+      "ts": "Mon, 12 Mar 2018 12:13:20 GMT", 
+      "twitter": null, 
+      "vicepresident": null, 
+      "website": null
+    }
+  ], 
+  "endPoints": [
+    {
+      "access": "public", 
+      "component": {
+        "name": "Login"
+      }, 
+      "description": "Login page", 
+      "endpointURL": "Login", 
+      "location": "options", 
+      "name": "login", 
+      "title": "Login"
+    }, 
+    {
+      "access": "public", 
+      "component": {
+        "name": "Adduser"
+      }, 
+      "description": "New User page", 
+      "endpointURL": "Adduser", 
+      "location": "options", 
+      "name": "newuser", 
+      "title": "New User"
+    }, 
+    {
+      "access": "public", 
+      "component": {
+        "name": "UserSettings"
+      }, 
+      "description": "User settings page", 
+      "endpointURL": "UserSettings", 
+      "location": "options", 
+      "name": "usersettings", 
+      "title": "User Settings"
+    }, 
+    {
+      "access": "public", 
+      "component": {
+        "name": "Logout"
+      }, 
+      "description": "Logout page", 
+      "endpointURL": "Logout", 
+      "location": "options", 
+      "name": "logout", 
+      "title": "Logout"
+    }
+  ], 
+  "events": [
+    {
+      "id": "bc07fb78-9b02-434e-9c08-22b83431e977", 
+      "name": "Gem and Jam - 2018"
+    }, 
+    {
+      "id": "0c3501b0-6eff-45a0-b2e9-a0f5d16dc1d1", 
+      "name": "Desert Hearts Festival - 2018"
+    }, 
+    {
+      "id": "140f058a-5db0-45f6-b370-ae50316ef170", 
+      "name": "Oregon Eclipse - 2017"
+    }
+  ], 
+  "menus": {
+    "footer": [], 
+    "options": [
+      {
+        "access": "public", 
+        "description": "Login page", 
+        "endpoint": "da3f4b00-e02f-48ff-b09f-bcc2a16192f3", 
+        "endpointURL": "Login", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 1, 
+        "title": "Login"
+      }, 
+      {
+        "access": "public", 
+        "description": "New User page", 
+        "endpoint": "99f05ee9-9871-459d-aeb2-4f8bdae39cde", 
+        "endpointURL": "Adduser", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 2, 
+        "title": "New User"
+      }, 
+      {
+        "access": "public", 
+        "description": "User settings page", 
+        "endpoint": "5f6885a9-f3dd-48d2-9a4b-f5ccebfa4e35", 
+        "endpointURL": "UserSettings", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 3, 
+        "title": "User Settings"
+      }, 
+      {
+        "access": "public", 
+        "description": "Logout page", 
+        "endpoint": "db1bc798-72d2-4c1f-b937-8c4bede19604", 
+        "endpointURL": "Logout", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 4, 
+        "title": "Logout"
+      }
+    ], 
+    "sidebar": [
+      {
+        "access": "public", 
+        "desc": "upper right options dots", 
+        "description": "Login page", 
+        "endpoint": "da3f4b00-e02f-48ff-b09f-bcc2a16192f3", 
+        "endpointURL": "Login", 
+        "id": "a2b9f424-47df-4c8e-b5ce-b0d8e30616b6", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 1, 
+        "orderint": 1, 
+        "title": "Login", 
+        "user": null
+      }, 
+      {
+        "access": "public", 
+        "desc": "upper right options dots", 
+        "description": "New User page", 
+        "endpoint": "99f05ee9-9871-459d-aeb2-4f8bdae39cde", 
+        "endpointURL": "Adduser", 
+        "id": "a2b9f424-47df-4c8e-b5ce-b0d8e30616b6", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 2, 
+        "orderint": 2, 
+        "title": "New User", 
+        "user": null
+      }, 
+      {
+        "access": "public", 
+        "desc": "upper right options dots", 
+        "description": "User settings page", 
+        "endpoint": "5f6885a9-f3dd-48d2-9a4b-f5ccebfa4e35", 
+        "endpointURL": "UserSettings", 
+        "id": "a2b9f424-47df-4c8e-b5ce-b0d8e30616b6", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 3, 
+        "orderint": 3, 
+        "title": "User Settings", 
+        "user": null
+      }, 
+      {
+        "access": "public", 
+        "desc": "upper right options dots", 
+        "description": "Logout page", 
+        "endpoint": "db1bc798-72d2-4c1f-b937-8c4bede19604", 
+        "endpointURL": "Logout", 
+        "id": "a2b9f424-47df-4c8e-b5ce-b0d8e30616b6", 
+        "location": "options", 
+        "name": "options", 
+        "order_int": 4, 
+        "orderint": 4, 
+        "title": "Logout", 
+        "user": null
+      }
+    ]
+  }, 
+  "users": [
+    {
+      "id": "8eba5ebb-72d5-4394-b001-d764fea16237", 
+      "name": "Workkkk"
+    }, 
+    {
+      "id": "4cfa0aff-07fc-45c2-a8ae-09bb51a6a89e", 
+      "name": "Paul Waldorf"
+    }, 
+    {
+      "id": "ea277d56-eb0e-4eac-af88-9ef8fb7cc6bf", 
+      "name": "TestingAgain"
+    }, 
+    {
+      "id": "d9f285ca-5673-49ad-aa60-289d2051387b", 
+      "name": "Random Dude"
+    }, 
+    {
+      "id": "e4611b42-1e30-4b73-b4f7-91232e360ab6", 
+      "name": "Bryan"
+    }
+  ]
+}
