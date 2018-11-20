@@ -1,4 +1,6 @@
-// vue.config.js
+ // vue.config.js
 module.exports = {
-  baseUrl:'/DancesafeResults/'
-  }
+  baseUrl: process.env.NODE_ENV === 'production'
+  ? '/DancesafeResults/'
+  : '/'
+} 

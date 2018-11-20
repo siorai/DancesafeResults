@@ -1,23 +1,21 @@
-# DancesafeResults
+# vuetifydsapp
 
-Web application to be hosted locally while Dancesafe Chapters are on site in order to better record reagent results.
+> Vuetify front end port for Dancesafe Results Tracking App
 
-## About
-This project is for the better collection of reagent testing results and a whole lot more for Dancesafe chapters across the world. 
+## Build Setup
 
-As of right now I'm envisioning this having 2 large portions of it, firstly is this part, a localized version that will eventually live on a raspberry pi 3. 
+``` bash
+# install dependencies
+npm install
 
-The end result should be an image that'll be easily burnable to a 32GB MicroSD card and plugged directly into a raspberry pi and be good to go. Granted, I'm a long away from that.... 
+# serve with hot reload at localhost:8080
+npm run dev
 
-## Requirements
+# build for production with minification
+npm run build
 
-Right now the python requirements should be listed in the setup.py, but outside of that you'll need access to a postgresql server running wherever. Currently I have mine running locally. Front requirements are should listed in the package.json inside of the frontend subdir.  
+# build for production and view the bundle analyzer report
+npm run build --report
+```
 
-## TODO
-- [ ] Finish up authorization complete with login/logout and isolate password storage in database
-- [ ] Normalize data from ecstasydata from JSON into easier to handle datatypes and tables in database
-
-## Special Thanks
-
-* [Kliment](https://github.com/kliment)- For originally suggesting I put this all on a raspberry pi 3 to begin and all the sage advice on db design. 
-* [Multiplexd](https://github.com/multiplexd) - For helping me figure out a partitioning issue that had stumped me for weeks.  
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
