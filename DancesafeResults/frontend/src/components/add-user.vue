@@ -110,7 +110,7 @@ export default {
       this.$validator.validateAll()
     },
     fetchMasterDict () {
-      const path = `http://192.168.4.1:9090/fetch_master_dict`
+      const path = `http://localhost:9090/fetch_master_dict`
       axios.get(path)
         .then(response => {
           this.masterJSON = response.data

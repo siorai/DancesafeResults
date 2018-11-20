@@ -3,7 +3,7 @@
     <v-layout>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
-          <v-form method="post" action="http://192.168.4.1:9090/api/add_sample" id="nativeForm">
+          <v-form method="post" action="http://localhost:9090/api/add_sample" id="nativeForm">
             <v-card-text>
               <v-container fluid>
                 <v-layout row>
@@ -192,7 +192,7 @@ export default {
   }),
   methods: {
     fetchSubstances () {
-      const path = `http://192.168.4.1:9090/api/fetch_substances`
+      const path = `http://localhost:9090/api/fetch_substances`
       axios.get(path)
         .then(response => {
           this.substancesList = response.data
@@ -202,7 +202,7 @@ export default {
         })
     },
     fetchTypes () {
-      const path = `http://192.168.4.1:9090/api/fetch_types`
+      const path = `http://localhost:9090/api/fetch_types`
       axios.get(path)
         .then(response => {
           this.typesList = response.data
@@ -212,7 +212,7 @@ export default {
         })
     },
     fetchEvents () {
-      const path = `http://192.168.4.1:9090/api/fetch_events`
+      const path = `http://localhost:9090/api/fetch_events`
       axios.get(path)
         .then(response => {
           this.eventList = response.data
@@ -222,7 +222,7 @@ export default {
         })
     },
     fetchUsers () {
-      const path = `http://192.168.4.1:9090/api/fetch_users`
+      const path = `http://localhost:9090/api/fetch_users`
       axios.get(path)
         .then(response => {
           this.userList = response.data
@@ -232,7 +232,7 @@ export default {
         })
     },
     submit () {
-      axios.post('http://192.168.4.1:9090/api/add_sample', {
+      axios.post('http://localhost:9090/api/add_sample', {
         eventid: this.eventid,
         shiftLead: this.shiftLead,
         tester: this.tester,

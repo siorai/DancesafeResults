@@ -37,7 +37,7 @@ export default {
   }),
   methods: {
     fetchChart () {
-      const path = `http://192.168.4.1:9090/api/demo_chart`
+      const path = `http://localhost:9090/api/demo_chart`
       axios.get(path)
         .then(response => {
           this.demoChart = response.data
