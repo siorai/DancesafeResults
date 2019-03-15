@@ -24,4 +24,18 @@ I automate with a bash script.
 
 As it stands currently I'm going with a standard Raspian OS.  The standard repositories however
 do not suffice for our needs.  Luckily the folks at debian have an unstable branch that contains more
-current versions of software I'm using for this project.  
+current versions of software I'm using for this project. 
+
+## Required Software
+
+#### Backend
+
+1. Python3.6+  - This will change to 3.7 in the very near future
+2. PostgreSQL Server 10.0 - Will be upgraded to 11 in the very near future
+
+
+#### Frontend
+
+1. Node.js
+2. npm
+3. Vue.js
