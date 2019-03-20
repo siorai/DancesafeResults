@@ -1,6 +1,6 @@
 import bcrypt
 from flask import Flask, flash, redirect, render_template, request, url_for, jsonify
-from flask.ext.bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 from werkzeug.utils import secure_filename
 from collections import OrderedDict, Counter
 from itertools import chain
